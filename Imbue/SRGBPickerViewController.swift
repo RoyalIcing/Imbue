@@ -18,7 +18,14 @@ class SRGBPickerViewController: UIViewController {
 	@IBOutlet var bHexField: UITextField!
 	@IBOutlet var colorImageView: UIImageView!
 	
-	var colorValues: (r: CGFloat, g: CGFloat, b: CGFloat) = (0.5, 0.5, 0.5)
+	var colorValues: ColorValue.RGB {
+		get {
+			return Manager.shared.currentColorValue.toSRGB() ?? ColorValue.RGB(r: 0.5, g: 0.5, b: 0.5)
+		}
+		set(rgb) {
+			Manager.shared.currentColorValue = .sRGB(rgb)
+		}
+	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -53,19 +60,19 @@ class SRGBPickerViewController: UIViewController {
 		updateUI()
 	}
 	
-	var colorValuesFromSliders: (r: CGFloat, g: CGFloat, b: CGFloat) {
-		return (
-			CGFloat(rSlider.value),
-			CGFloat(gSlider.value),
-			CGFloat(bSlider.value)
+	var colorValuesFromSliders: ColorValue.RGB {
+		return ColorValue.RGB(
+			r: CGFloat(rSlider.value),
+			g: CGFloat(gSlider.value),
+			b: CGFloat(bSlider.value)
 		)
 	}
 	
-	var colorValuesFromHexFields: (r: CGFloat, g: CGFloat, b: CGFloat) {
-		return (
-			CGFloat(hexString: rHexField.text ?? "") ?? 0,
-			CGFloat(hexString: gHexField.text ?? "") ?? 0,
-			CGFloat(hexString: bHexField.text ?? "") ?? 0
+	var colorValuesFromHexFields: ColorValue.RGB {
+		return ColorValue.RGB(
+			r: CGFloat(hexString: rHexField.text ?? "") ?? 0,
+			g: CGFloat(hexString: gHexField.text ?? "") ?? 0,
+			b: CGFloat(hexString: bHexField.text ?? "") ?? 0
 		)
 	}
 	

@@ -44,7 +44,11 @@ extension CGColor {
 		}
 	}
 	
-	private func toLinearSRGB() -> CGColor? {
+	func toLabD50() -> CGColor? {
+		return self.converted(to: labD50ColorSpace, intent: .absoluteColorimetric, options: nil)
+	}
+	
+	func toLinearSRGB() -> CGColor? {
 		return self.converted(to: extendedLinearSRGBSpace, intent: .absoluteColorimetric, options: nil)
 	}
 	

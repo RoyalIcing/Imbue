@@ -16,6 +16,8 @@
 		B2C834FA1F0E305C002B8931 /* ImbueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C834F91F0E305C002B8931 /* ImbueTests.swift */; };
 		B2C835051F0E305C002B8931 /* ImbueUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C835041F0E305C002B8931 /* ImbueUITests.swift */; };
 		B2C835131F0E31F2002B8931 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C835121F0E31F2002B8931 /* Color.swift */; };
+		B2C835171F0E6DF9002B8931 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C835161F0E6DF9002B8931 /* Manager.swift */; };
+		B2C835191F0E703F002B8931 /* ColorValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C835181F0E703F002B8931 /* ColorValue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		B2C835041F0E305C002B8931 /* ImbueUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImbueUITests.swift; sourceTree = "<group>"; };
 		B2C835061F0E305C002B8931 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2C835121F0E31F2002B8931 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		B2C835161F0E6DF9002B8931 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		B2C835181F0E703F002B8931 /* ColorValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorValue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				B2C835121F0E31F2002B8931 /* Color.swift */,
+				B2C835181F0E703F002B8931 /* ColorValue.swift */,
+				B2C835161F0E6DF9002B8931 /* Manager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -288,6 +294,8 @@
 				B2C835131F0E31F2002B8931 /* Color.swift in Sources */,
 				B2C834E31F0E305C002B8931 /* AppDelegate.swift in Sources */,
 				B2C834E51F0E305C002B8931 /* LabPickerViewController.swift in Sources */,
+				B2C835171F0E6DF9002B8931 /* Manager.swift in Sources */,
+				B2C835191F0E703F002B8931 /* ColorValue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
