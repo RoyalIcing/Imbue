@@ -45,11 +45,11 @@ extension CGColor {
 	}
 	
 	func toLabD50() -> CGColor? {
-		return self.converted(to: labD50ColorSpace, intent: .absoluteColorimetric, options: nil)
+		return self.converted(to: labD50ColorSpace, intent: .defaultIntent, options: nil)
 	}
 	
 	func toLinearSRGB() -> CGColor? {
-		return self.converted(to: extendedLinearSRGBSpace, intent: .absoluteColorimetric, options: nil)
+		return self.converted(to: extendedLinearSRGBSpace, intent: .defaultIntent, options: nil)
 	}
 	
 	func toDisplayUIColor() -> UIColor? {
@@ -59,7 +59,8 @@ extension CGColor {
 
 extension CGFloat {
 	var hexString: String {
-		let uint255 = UInt8(self * 255)
+		let clamped: CGFloat = Swift.min(Swift.max(self, 0.0), 1.0)
+		let uint255 = UInt8(clamped * 255)
 		return String(uint255, radix: 16, uppercase: true)
 	}
 	

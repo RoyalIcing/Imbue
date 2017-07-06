@@ -60,6 +60,10 @@ class SRGBPickerViewController: UIViewController {
 		updateUI()
 	}
 	
+	override func viewDidAppear(_ animated: Bool) {
+		updateUI()
+	}
+	
 	var colorValuesFromSliders: ColorValue.RGB {
 		return ColorValue.RGB(
 			r: CGFloat(rSlider.value),
@@ -89,7 +93,10 @@ class SRGBPickerViewController: UIViewController {
 	func updateUI() {
 		let colorValues = self.colorValues
 		let cgColorLab = CGColor.linearSRGB(r: colorValues.r, g: colorValues.g, b: colorValues.b)
+		
+		CATransaction.begin()
 		colorImageView.layer.backgroundColor = cgColorLab
+		CATransaction.commit()
 		
 		rSlider.value = Float(colorValues.r)
 		gSlider.value = Float(colorValues.g)

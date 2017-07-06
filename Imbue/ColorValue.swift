@@ -68,6 +68,20 @@ public enum ColorValue : Equatable {
 			return RGB(r: components[0], g: components[1], b: components[2])
 		}
 	}
+	
+	func toLabD50() -> Lab? {
+		switch self {
+		case let .labD50(lab):
+			return lab
+		default:
+			guard
+				let cgColor = self.cgColor?.toLabD50(),
+				let components = cgColor.components
+				else { return nil }
+			
+			return Lab(l: components[0], a: components[1], b: components[2])
+		}
+	}
 }
 
 extension ColorValue.Lab {
