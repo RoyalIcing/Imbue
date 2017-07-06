@@ -37,7 +37,14 @@ extension CGColor {
 		}
 	}
 	
-	func toLinearSRGB() -> CGColor? {
+	class func linearSRGB(r: CGFloat, g: CGFloat, b: CGFloat, alpha: CGFloat = 1.0) -> CGColor? {
+		let values: [CGFloat] = [r, g, b, alpha]
+		return values.withUnsafeBufferPointer { valuesBuffer in
+			return CGColor(colorSpace: extendedLinearSRGBSpace, components: valuesBuffer.baseAddress!)
+		}
+	}
+	
+	private func toLinearSRGB() -> CGColor? {
 		return self.converted(to: extendedLinearSRGBSpace, intent: .absoluteColorimetric, options: nil)
 	}
 	

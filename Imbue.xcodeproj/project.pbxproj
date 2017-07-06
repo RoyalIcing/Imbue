@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		B2C834E31F0E305C002B8931 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C834E21F0E305C002B8931 /* AppDelegate.swift */; };
 		B2C834E51F0E305C002B8931 /* LabPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */; };
-		B2C834E71F0E305C002B8931 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C834E61F0E305C002B8931 /* SecondViewController.swift */; };
+		B2C834E71F0E305C002B8931 /* SRGBPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C834E61F0E305C002B8931 /* SRGBPickerViewController.swift */; };
 		B2C834EA1F0E305C002B8931 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2C834E81F0E305C002B8931 /* Main.storyboard */; };
 		B2C834EC1F0E305C002B8931 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2C834EB1F0E305C002B8931 /* Assets.xcassets */; };
 		B2C834EF1F0E305C002B8931 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2C834ED1F0E305C002B8931 /* LaunchScreen.storyboard */; };
@@ -39,7 +39,7 @@
 		B2C834DF1F0E305C002B8931 /* Imbue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imbue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2C834E21F0E305C002B8931 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabPickerViewController.swift; sourceTree = "<group>"; };
-		B2C834E61F0E305C002B8931 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		B2C834E61F0E305C002B8931 /* SRGBPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRGBPickerViewController.swift; sourceTree = "<group>"; };
 		B2C834E91F0E305C002B8931 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B2C834EB1F0E305C002B8931 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2C834EE1F0E305C002B8931 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 			children = (
 				B2C834E81F0E305C002B8931 /* Main.storyboard */,
 				B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */,
-				B2C834E61F0E305C002B8931 /* SecondViewController.swift */,
+				B2C834E61F0E305C002B8931 /* SRGBPickerViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -284,7 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2C834E71F0E305C002B8931 /* SecondViewController.swift in Sources */,
+				B2C834E71F0E305C002B8931 /* SRGBPickerViewController.swift in Sources */,
 				B2C835131F0E31F2002B8931 /* Color.swift in Sources */,
 				B2C834E31F0E305C002B8931 /* AppDelegate.swift in Sources */,
 				B2C834E51F0E305C002B8931 /* LabPickerViewController.swift in Sources */,

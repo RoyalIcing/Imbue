@@ -13,7 +13,7 @@
         <!--Lab Picker-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController storyboardIdentifier="lab" title="Lab Picker" id="9pv-A4-QxB" customClass="LabPickerViewController" customModule="Imbue" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="labPickerVC" title="Lab Picker" id="9pv-A4-QxB" customClass="LabPickerViewController" customModule="Imbue" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -69,7 +69,7 @@
         <!--sRGB-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="Imbue" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="srgbPickerVC" id="8rJ-Kc-sve" customClass="SRGBPickerViewController" customModule="Imbue" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
@@ -78,14 +78,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="jlc-ff-qxI">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="jlc-ff-qxI">
                                 <rect key="frame" x="14" y="500" width="347" height="31"/>
                                 <accessibility key="accessibilityConfiguration" label="Luminosity"/>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-128" maxValue="127" translatesAutoresizingMaskIntoConstraints="NO" id="pcl-ki-I8Q">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="pcl-ki-I8Q">
                                 <rect key="frame" x="14" y="538" width="347" height="31"/>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-128" maxValue="127" translatesAutoresizingMaskIntoConstraints="NO" id="YVU-P4-oX1">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="YVU-P4-oX1">
                                 <rect key="frame" x="14" y="576" width="347" height="31"/>
                             </slider>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bgX-xK-FSw">
@@ -111,6 +111,12 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="sRGB" image="second" id="cPa-gy-q4n"/>
+                    <connections>
+                        <outlet property="bSlider" destination="YVU-P4-oX1" id="EJh-Dd-wN7"/>
+                        <outlet property="colorImageView" destination="bgX-xK-FSw" id="ggS-le-VRD"/>
+                        <outlet property="gSlider" destination="pcl-ki-I8Q" id="Wgv-gU-WHm"/>
+                        <outlet property="rSlider" destination="jlc-ff-qxI" id="XrL-GC-xvB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
