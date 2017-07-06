@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B2C834E31F0E305C002B8931 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C834E21F0E305C002B8931 /* AppDelegate.swift */; };
-		B2C834E51F0E305C002B8931 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C834E41F0E305C002B8931 /* FirstViewController.swift */; };
+		B2C834E51F0E305C002B8931 /* LabPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */; };
 		B2C834E71F0E305C002B8931 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C834E61F0E305C002B8931 /* SecondViewController.swift */; };
 		B2C834EA1F0E305C002B8931 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2C834E81F0E305C002B8931 /* Main.storyboard */; };
 		B2C834EC1F0E305C002B8931 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2C834EB1F0E305C002B8931 /* Assets.xcassets */; };
@@ -38,7 +38,7 @@
 /* Begin PBXFileReference section */
 		B2C834DF1F0E305C002B8931 /* Imbue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imbue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2C834E21F0E305C002B8931 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B2C834E41F0E305C002B8931 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabPickerViewController.swift; sourceTree = "<group>"; };
 		B2C834E61F0E305C002B8931 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		B2C834E91F0E305C002B8931 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B2C834EB1F0E305C002B8931 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -102,10 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				B2C834E21F0E305C002B8931 /* AppDelegate.swift */,
-				B2C835121F0E31F2002B8931 /* Color.swift */,
-				B2C834E41F0E305C002B8931 /* FirstViewController.swift */,
-				B2C834E61F0E305C002B8931 /* SecondViewController.swift */,
-				B2C834E81F0E305C002B8931 /* Main.storyboard */,
+				B2C835151F0E603D002B8931 /* Model */,
+				B2C835141F0E6034002B8931 /* View */,
 				B2C834EB1F0E305C002B8931 /* Assets.xcassets */,
 				B2C834ED1F0E305C002B8931 /* LaunchScreen.storyboard */,
 				B2C834F01F0E305C002B8931 /* Info.plist */,
@@ -129,6 +127,24 @@
 				B2C835061F0E305C002B8931 /* Info.plist */,
 			);
 			path = ImbueUITests;
+			sourceTree = "<group>";
+		};
+		B2C835141F0E6034002B8931 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B2C834E81F0E305C002B8931 /* Main.storyboard */,
+				B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */,
+				B2C834E61F0E305C002B8931 /* SecondViewController.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		B2C835151F0E603D002B8931 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B2C835121F0E31F2002B8931 /* Color.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,7 +287,7 @@
 				B2C834E71F0E305C002B8931 /* SecondViewController.swift in Sources */,
 				B2C835131F0E31F2002B8931 /* Color.swift in Sources */,
 				B2C834E31F0E305C002B8931 /* AppDelegate.swift in Sources */,
-				B2C834E51F0E305C002B8931 /* FirstViewController.swift in Sources */,
+				B2C834E51F0E305C002B8931 /* LabPickerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

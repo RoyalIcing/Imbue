@@ -6,7 +6,7 @@
 //  Copyright © 2017 Burnt Caramel. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import CoreGraphics
 
 
@@ -26,6 +26,8 @@ let labD50ColorSpace = d50WhitePoint.withUnsafeBufferPointer { (whitePointBuffer
 	}
 }!
 
+let extendedLinearSRGBSpace = CGColorSpace(name: CGColorSpace.extendedLinearSRGB)!
+
 
 extension CGColor {
 	class func labD50(l: CGFloat, a: CGFloat, b: CGFloat, alpha: CGFloat = 1.0) -> CGColor? {
@@ -33,5 +35,13 @@ extension CGColor {
 		return values.withUnsafeBufferPointer { valuesBuffer in
 				return CGColor(colorSpace: labD50ColorSpace, components: valuesBuffer.baseAddress!)
 		}
+	}
+	
+	func toLinearSRGB() -> CGColor? {
+		return self.converted(to: extendedLinearSRGBSpace, intent: .absoluteColorimetric, options: nil)
+	}
+	
+	func toDisplayUIColor() -> UIColor? {
+		return self.toLinearSRGB().map{ UIColor(cgColor: $0) }
 	}
 }
