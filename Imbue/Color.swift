@@ -27,6 +27,7 @@ let labD50ColorSpace = d50WhitePoint.withUnsafeBufferPointer { (whitePointBuffer
 }!
 
 let extendedLinearSRGBSpace = CGColorSpace(name: CGColorSpace.extendedLinearSRGB)!
+let extendedSRGBSpace = CGColorSpace(name: CGColorSpace.extendedSRGB)!
 
 
 extension CGColor {
@@ -44,6 +45,13 @@ extension CGColor {
 		}
 	}
 	
+	class func sRGB(r: CGFloat, g: CGFloat, b: CGFloat, alpha: CGFloat = 1.0) -> CGColor? {
+		let values: [CGFloat] = [r, g, b, alpha]
+		return values.withUnsafeBufferPointer { valuesBuffer in
+			return CGColor(colorSpace: extendedSRGBSpace, components: valuesBuffer.baseAddress!)
+		}
+	}
+	
 	func toLabD50() -> CGColor? {
 		return self.converted(to: labD50ColorSpace, intent: .defaultIntent, options: nil)
 	}
@@ -52,8 +60,12 @@ extension CGColor {
 		return self.converted(to: extendedLinearSRGBSpace, intent: .defaultIntent, options: nil)
 	}
 	
+	func toSRGB() -> CGColor? {
+		return self.converted(to: extendedSRGBSpace, intent: .defaultIntent, options: nil)
+	}
+	
 	func toDisplayUIColor() -> UIColor? {
-		return self.toLinearSRGB().map{ UIColor(cgColor: $0) }
+		return self.toSRGB().map{ UIColor(cgColor: $0) }
 	}
 }
 
