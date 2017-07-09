@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 class LabPickerViewController: UIViewController {
 	
@@ -101,6 +102,17 @@ class LabPickerViewController: UIViewController {
 		lHexField.text = "\(Int(colorValues.l))"
 		aHexField.text = "\(Int(colorValues.a))"
 		bHexField.text = "\(Int(colorValues.b))"
+	}
+	
+	override func copy(_ sender: Any?) {
+		guard let rgb = ColorValue.labD50(self.colorValues).toSRGB()
+			else { return }
+		
+		let pb = UIPasteboard.general
+		pb.color = ColorValue.sRGB(rgb).cgColor.map{ UIColor(cgColor: $0) }
+		pb.addItems([
+			[kUTTypeUTF8PlainText as String: rgb.hexString]
+		])
 	}
 
 	override func didReceiveMemoryWarning() {

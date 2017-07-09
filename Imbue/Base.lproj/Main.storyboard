@@ -244,6 +244,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="sRGB" image="second" id="cPa-gy-q4n"/>
+                    <keyCommands>
+                        <keyCommand input="c" modifierFlags="1048576" actionName="copy:" discoverabilityTitle="Copy"/>
+                    </keyCommands>
                     <connections>
                         <outlet property="bHexField" destination="WbQ-6G-Lsl" id="GMb-Ym-Cxh"/>
                         <outlet property="bSlider" destination="YVU-P4-oX1" id="EJh-Dd-wN7"/>

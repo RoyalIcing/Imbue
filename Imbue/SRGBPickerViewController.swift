@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 class SRGBPickerViewController: UIViewController {
 
@@ -101,6 +102,15 @@ class SRGBPickerViewController: UIViewController {
 		rHexField.text = colorValues.r.hexString
 		gHexField.text = colorValues.g.hexString
 		bHexField.text = colorValues.b.hexString
+	}
+	
+	override func copy(_ sender: Any?) {
+		let rgb = self.colorValues
+		let pb = UIPasteboard.general
+		pb.color = ColorValue.sRGB(rgb).cgColor.map{ UIColor(cgColor: $0) }
+		pb.addItems([
+			[kUTTypeUTF8PlainText as String: rgb.hexString],
+		])
 	}
 	
 	override func didReceiveMemoryWarning() {

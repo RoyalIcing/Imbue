@@ -122,6 +122,10 @@ extension ColorValue.RGB {
 			"b": b
 		]
 	}
+	
+	var hexString: String {
+		return [r.hexString, g.hexString, b.hexString].joined()
+	}
 }
 
 extension ColorValue {
