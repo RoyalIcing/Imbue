@@ -51,7 +51,7 @@ public enum ColorValue : Equatable {
 		case let .labD50(lab):
 			return CGColor.labD50(l: lab.l, a: lab.a, b: lab.b)
 		case let .sRGB(rgb):
-			return CGColor.linearSRGB(r: rgb.r, g: rgb.g, b: rgb.b)
+			return CGColor.sRGB(r: rgb.r, g: rgb.g, b: rgb.b)
 		}
 	}
 	
@@ -61,7 +61,7 @@ public enum ColorValue : Equatable {
 			return rgb
 		default:
 			guard
-				let cgColor = self.cgColor?.toLinearSRGB(),
+				let cgColor = self.cgColor?.toSRGB(),
 				let components = cgColor.components
 				else { return nil }
 			
@@ -86,13 +86,10 @@ public enum ColorValue : Equatable {
 
 extension ColorValue.Lab {
 	public init?(dictionary: [String: Any]) {
-		guard let l = dictionary["l"] as? CGFloat
-			else { return nil }
-		
-		guard let a = dictionary["a"] as? CGFloat
-			else { return nil }
-		
-		guard let b = dictionary["b"] as? CGFloat
+		guard
+			let l = dictionary["l"] as? CGFloat,
+			let a = dictionary["a"] as? CGFloat,
+			let b = dictionary["b"] as? CGFloat
 			else { return nil }
 		
 		self.init(l: l, a: a, b: b)
@@ -109,13 +106,10 @@ extension ColorValue.Lab {
 
 extension ColorValue.RGB {
 	public init?(dictionary: [String: Any]) {
-		guard let r = dictionary["r"] as? CGFloat
-			else { return nil }
-		
-		guard let g = dictionary["g"] as? CGFloat
-			else { return nil }
-		
-		guard let b = dictionary["b"] as? CGFloat
+		guard
+			let r = dictionary["r"] as? CGFloat,
+			let g = dictionary["g"] as? CGFloat,
+			let b = dictionary["b"] as? CGFloat
 			else { return nil }
 		
 		self.init(r: r, g: g, b: b)
