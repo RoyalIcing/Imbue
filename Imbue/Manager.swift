@@ -66,7 +66,7 @@ class Manager {
 	}
 	
 	private func load() {
-		_currentColorValue = Defaults.loadColorValue(fallback: ColorValue.labD50(ColorValue.Lab(l: 0.5, a: 0.5, b: 0.5)))
+		_currentColorValue = Defaults.loadColorValue(fallback: ColorValue.labD50(ColorValue.Lab(l: 50.0, a: 0.5, b: 0.5)))
 	}
 	
 	private func save() {
