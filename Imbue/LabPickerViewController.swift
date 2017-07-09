@@ -13,11 +13,14 @@ class LabPickerViewController: UIViewController {
 	@IBOutlet var lSlider: UISlider!
 	@IBOutlet var aSlider: UISlider!
 	@IBOutlet var bSlider: UISlider!
+	@IBOutlet var lHexField: UITextField!
+	@IBOutlet var aHexField: UITextField!
+	@IBOutlet var bHexField: UITextField!
 	@IBOutlet var colorImageView: UIImageView!
 
 	var colorValues: ColorValue.Lab {
 		get {
-			return Manager.shared.currentColorValue.toLabD50() ?? ColorValue.Lab(l: 0.0, a: 0.0, b: 0.0)
+			return Manager.shared.currentColorValue.toLabD50() ?? ColorValue.Lab(l: 50.0, a: 0.0, b: 0.0)
 		}
 		set(lab) {
 			Manager.shared.currentColorValue = .labD50(lab)
@@ -41,6 +44,14 @@ class LabPickerViewController: UIViewController {
 		aSlider.addTarget(self, action: #selector(LabPickerViewController.sliderChanged), for: UIControlEvents.valueChanged)
 		bSlider.addTarget(self, action: #selector(LabPickerViewController.sliderChanged), for: UIControlEvents.valueChanged)
 		
+		// Hex fields
+		for field in [lHexField!, aHexField!, bHexField!] {
+			field.returnKeyType = .done
+			field.keyboardType = .asciiCapable
+			
+			field.addTarget(self, action: #selector(LabPickerViewController.hexFieldChanged), for: .editingDidEnd)
+		}
+		
 		// Update
 		updateUI()
 	}
@@ -57,22 +68,39 @@ class LabPickerViewController: UIViewController {
 		)
 	}
 	
+	var colorValuesFromHexFields: ColorValue.Lab {
+		return ColorValue.Lab(
+			l: CGFloat(hexString: lHexField.text ?? "") ?? 0,
+			a: CGFloat(hexString: aHexField.text ?? "") ?? 0,
+			b: CGFloat(hexString: bHexField.text ?? "") ?? 0
+		)
+	}
+	
 	func sliderChanged() {
 		colorValues = colorValuesFromSliders
 		updateUI()
 	}
 	
+	func hexFieldChanged() {
+		colorValues = colorValuesFromHexFields
+		updateUI()
+	}
+	
 	func updateUI() {
 		let colorValues = self.colorValues
-		let cgColorLab = CGColor.labD50(l: colorValues.l, a: colorValues.a, b: colorValues.b)!
+		let cgColor = CGColor.labD50(l: colorValues.l, a: colorValues.a, b: colorValues.b)!
 		
 		CATransaction.begin()
-		colorImageView.layer.backgroundColor = cgColorLab
+		colorImageView.layer.backgroundColor = cgColor
 		CATransaction.commit()
 		
 		lSlider.value = Float(colorValues.l)
 		aSlider.value = Float(colorValues.a)
 		bSlider.value = Float(colorValues.b)
+		
+		lHexField.text = "\(Int(colorValues.l))"
+		aHexField.text = "\(Int(colorValues.a))"
+		bHexField.text = "\(Int(colorValues.b))"
 	}
 
 	override func didReceiveMemoryWarning() {
