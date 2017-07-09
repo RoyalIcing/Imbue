@@ -45,16 +45,12 @@ class SRGBPickerViewController: UIViewController {
 		bSlider.addTarget(self, action: #selector(SRGBPickerViewController.sliderChanged), for: UIControlEvents.valueChanged)
 		
 		// Hex fields
-		rHexField.returnKeyType = .done
-		rHexField.keyboardType = .asciiCapable
-		gHexField.returnKeyType = .done
-		gHexField.keyboardType = .asciiCapable
-		bHexField.returnKeyType = .done
-		bHexField.keyboardType = .asciiCapable
-		
-		rHexField.addTarget(self, action: #selector(SRGBPickerViewController.hexFieldChanged), for: .editingDidEnd)
-		gHexField.addTarget(self, action: #selector(SRGBPickerViewController.hexFieldChanged), for: .editingDidEnd)
-		bHexField.addTarget(self, action: #selector(SRGBPickerViewController.hexFieldChanged), for: .editingDidEnd)
+		for field in [rHexField!, gHexField!, bHexField!] {
+			field.returnKeyType = .done
+			field.keyboardType = .asciiCapable
+			
+			field.addTarget(self, action: #selector(SRGBPickerViewController.hexFieldChanged), for: .editingDidEnd)
+		}
 		
 		// Update
 		updateUI()
@@ -92,10 +88,10 @@ class SRGBPickerViewController: UIViewController {
 	
 	func updateUI() {
 		let colorValues = self.colorValues
-		let cgColorLab = CGColor.linearSRGB(r: colorValues.r, g: colorValues.g, b: colorValues.b)
+		let cgColor = CGColor.sRGB(r: colorValues.r, g: colorValues.g, b: colorValues.b)
 		
 		CATransaction.begin()
-		colorImageView.layer.backgroundColor = cgColorLab
+		colorImageView.layer.backgroundColor = cgColor
 		CATransaction.commit()
 		
 		rSlider.value = Float(colorValues.r)
