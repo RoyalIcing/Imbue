@@ -18,6 +18,9 @@ class SRGBPickerViewController: UIViewController {
 	@IBOutlet var gHexField: UITextField!
 	@IBOutlet var bHexField: UITextField!
 	@IBOutlet var colorImageView: UIImageView!
+	@IBOutlet var bottomLayoutConstraint: NSLayoutConstraint!
+	
+	private var observers = [Any]()
 	
 	var colorValues: ColorValue.RGB {
 		get {
@@ -50,7 +53,7 @@ class SRGBPickerViewController: UIViewController {
 			field.returnKeyType = .done
 			field.keyboardType = .asciiCapable
 			
-			field.addTarget(self, action: #selector(SRGBPickerViewController.hexFieldChanged), for: .editingDidEnd)
+			field.addTarget(self, action: #selector(SRGBPickerViewController.hexFieldChanged), for: .editingDidEndOnExit)
 		}
 		
 		// Update
@@ -58,7 +61,17 @@ class SRGBPickerViewController: UIViewController {
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
+		observers += ViewConvenience.observeKeyboardNotifications(viewController: self, constraint: bottomLayoutConstraint, valueWhenHidden: 12.0)
+		
 		updateUI()
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		let nc = NotificationCenter.default
+		for observer in observers {
+			nc.removeObserver(observer)
+		}
+		observers.removeAll()
 	}
 	
 	var colorValuesFromSliders: ColorValue.RGB {
@@ -104,7 +117,7 @@ class SRGBPickerViewController: UIViewController {
 		bHexField.text = colorValues.b.hexString
 	}
 	
-	override func copy(_ sender: Any?) {
+	@IBAction override func copy(_ sender: Any?) {
 		let rgb = self.colorValues
 		let pb = UIPasteboard.general
 		pb.color = ColorValue.sRGB(rgb).cgColor.map{ UIColor(cgColor: $0) }

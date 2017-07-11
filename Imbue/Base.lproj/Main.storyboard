@@ -94,7 +94,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="CQZ-eh-dZ4" firstAttribute="leading" secondItem="q02-lV-JqT" secondAttribute="leading" id="2CF-a7-xsZ"/>
-                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="CQZ-eh-dZ4" secondAttribute="bottom" constant="12" id="2HI-jv-MBt"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="CQZ-eh-dZ4" secondAttribute="bottom" constant="12" identifier="keyboardTarget" id="2HI-jv-MBt"/>
                             <constraint firstItem="LpD-tm-UPh" firstAttribute="leading" secondItem="q02-lV-JqT" secondAttribute="leading" id="6WP-EG-4um"/>
                             <constraint firstAttribute="trailingMargin" secondItem="A9U-cq-MwW" secondAttribute="trailing" priority="750" id="8RK-nj-vqG"/>
                             <constraint firstItem="CQZ-eh-dZ4" firstAttribute="trailing" secondItem="q02-lV-JqT" secondAttribute="trailing" id="BHg-Fm-A3s"/>
@@ -129,6 +129,7 @@
                         <outlet property="aSlider" destination="LpD-tm-UPh" id="8Tw-3z-Qd0"/>
                         <outlet property="bHexField" destination="1YD-V9-0DJ" id="yCc-Ta-Wjr"/>
                         <outlet property="bSlider" destination="CQZ-eh-dZ4" id="LfT-6H-kyC"/>
+                        <outlet property="bottomLayoutConstraint" destination="2HI-jv-MBt" id="zBC-rw-aRi"/>
                         <outlet property="colorImageView" destination="0jh-lZ-Q5F" id="YQc-Fh-qXq"/>
                         <outlet property="lHexField" destination="A9U-cq-MwW" id="1Oe-Z2-PFD"/>
                         <outlet property="lSlider" destination="q02-lV-JqT" id="2ff-SO-LeR"/>
@@ -164,7 +165,7 @@
                                 <rect key="frame" x="44" y="645" width="307" height="31"/>
                             </slider>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bgX-xK-FSw">
-                                <rect key="frame" x="0.0" y="20" width="414" height="541"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="503"/>
                                 <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="0.0" right="8"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B3m-dq-DY7">
@@ -215,17 +216,40 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Sx-r6-27U">
+                                <rect key="frame" x="179.66666666666666" y="531" width="36" height="30"/>
+                                <state key="normal" title="Copy"/>
+                                <connections>
+                                    <action selector="copy:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Ibc-WT-P8c"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XKc-fM-cSb">
+                                <rect key="frame" x="223.66666666666669" y="531" width="39.000000000000057" height="30"/>
+                                <state key="normal" title="Paste"/>
+                                <connections>
+                                    <action selector="copy:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="AgW-lC-3vw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JuU-zU-lr0">
+                                <rect key="frame" x="138" y="531" width="33" height="30"/>
+                                <state key="normal" title="Grey"/>
+                                <connections>
+                                    <action selector="copy:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="DHz-sy-QqL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Xkn-0f-bTs" firstAttribute="centerY" secondItem="pcl-ki-I8Q" secondAttribute="centerY" id="0KR-gz-rZB"/>
                             <constraint firstItem="VJ0-6O-lQX" firstAttribute="trailing" secondItem="dNb-4F-aPi" secondAttribute="trailing" id="1Eh-VX-Pem"/>
+                            <constraint firstItem="JuU-zU-lr0" firstAttribute="centerY" secondItem="5Sx-r6-27U" secondAttribute="centerY" id="1en-eD-UPj"/>
+                            <constraint firstItem="jlc-ff-qxI" firstAttribute="top" secondItem="5Sx-r6-27U" secondAttribute="bottom" constant="8" id="3O0-KE-V8R"/>
                             <constraint firstItem="Mpc-45-3gv" firstAttribute="leading" secondItem="B3m-dq-DY7" secondAttribute="leading" id="4EK-dx-uHH"/>
                             <constraint firstItem="WbQ-6G-Lsl" firstAttribute="leading" secondItem="YVU-P4-oX1" secondAttribute="trailing" constant="8" id="5J0-F8-EHn"/>
                             <constraint firstItem="dNb-4F-aPi" firstAttribute="leading" secondItem="jlc-ff-qxI" secondAttribute="trailing" constant="8" symbolic="YES" id="5vq-ti-Cij"/>
                             <constraint firstItem="VJ0-6O-lQX" firstAttribute="leading" secondItem="pcl-ki-I8Q" secondAttribute="trailing" constant="8" symbolic="YES" id="860-nr-LVZ"/>
+                            <constraint firstItem="XKc-fM-cSb" firstAttribute="leading" secondItem="5Sx-r6-27U" secondAttribute="trailing" constant="8" symbolic="YES" id="9gu-oQ-Tkj"/>
                             <constraint firstItem="pcl-ki-I8Q" firstAttribute="leading" secondItem="YVU-P4-oX1" secondAttribute="leading" id="DcN-AZ-ARd"/>
-                            <constraint firstItem="jlc-ff-qxI" firstAttribute="top" secondItem="bgX-xK-FSw" secondAttribute="bottom" constant="8" id="EQE-uR-u9T"/>
                             <constraint firstItem="YVU-P4-oX1" firstAttribute="top" secondItem="pcl-ki-I8Q" secondAttribute="bottom" constant="8" id="Ge8-TD-ejr"/>
                             <constraint firstItem="pcl-ki-I8Q" firstAttribute="trailing" secondItem="YVU-P4-oX1" secondAttribute="trailing" id="IX7-fk-vmc"/>
                             <constraint firstItem="Xkn-0f-bTs" firstAttribute="leading" secondItem="B3m-dq-DY7" secondAttribute="leading" id="JHP-IV-6Qs"/>
@@ -234,6 +258,7 @@
                             <constraint firstItem="B3m-dq-DY7" firstAttribute="centerY" secondItem="jlc-ff-qxI" secondAttribute="centerY" id="LPP-9i-72T"/>
                             <constraint firstItem="dNb-4F-aPi" firstAttribute="width" secondItem="WbQ-6G-Lsl" secondAttribute="width" id="MwN-Fd-XRi"/>
                             <constraint firstItem="YVU-P4-oX1" firstAttribute="leading" secondItem="Mpc-45-3gv" secondAttribute="trailing" constant="8" symbolic="YES" id="QEj-UC-ODB"/>
+                            <constraint firstItem="XKc-fM-cSb" firstAttribute="centerY" secondItem="5Sx-r6-27U" secondAttribute="centerY" id="RFL-9M-s5d"/>
                             <constraint firstItem="pcl-ki-I8Q" firstAttribute="leading" secondItem="Xkn-0f-bTs" secondAttribute="trailing" constant="8" symbolic="YES" id="VeI-1i-Cg2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dNb-4F-aPi" secondAttribute="trailing" priority="750" id="bKZ-7Y-ePg"/>
                             <constraint firstItem="bgX-xK-FSw" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="cKy-iK-qUc"/>
@@ -241,9 +266,12 @@
                             <constraint firstItem="WbQ-6G-Lsl" firstAttribute="centerY" secondItem="YVU-P4-oX1" secondAttribute="centerY" id="hLt-mE-dlJ"/>
                             <constraint firstItem="jlc-ff-qxI" firstAttribute="trailing" secondItem="YVU-P4-oX1" secondAttribute="trailing" id="heb-YP-fWa"/>
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="YVU-P4-oX1" secondAttribute="bottom" constant="12" id="icl-eU-hd2"/>
+                            <constraint firstItem="5Sx-r6-27U" firstAttribute="top" secondItem="bgX-xK-FSw" secondAttribute="bottom" constant="8" id="jWO-uT-miD"/>
                             <constraint firstAttribute="trailing" secondItem="bgX-xK-FSw" secondAttribute="trailing" id="kg6-lN-6lF"/>
+                            <constraint firstItem="5Sx-r6-27U" firstAttribute="leading" secondItem="JuU-zU-lr0" secondAttribute="trailing" constant="8" symbolic="YES" id="pbo-oz-aDI"/>
                             <constraint firstItem="VJ0-6O-lQX" firstAttribute="width" secondItem="WbQ-6G-Lsl" secondAttribute="width" id="qwL-6e-y5r"/>
                             <constraint firstItem="VJ0-6O-lQX" firstAttribute="centerY" secondItem="pcl-ki-I8Q" secondAttribute="centerY" id="tgj-B8-VPA"/>
+                            <constraint firstItem="5Sx-r6-27U" firstAttribute="centerX" secondItem="jlc-ff-qxI" secondAttribute="centerX" id="toj-HG-Ne6"/>
                             <constraint firstItem="bgX-xK-FSw" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="ulw-Tq-99S"/>
                             <constraint firstAttribute="leadingMargin" secondItem="B3m-dq-DY7" secondAttribute="leading" priority="750" id="wKw-To-0BW"/>
                             <constraint firstItem="pcl-ki-I8Q" firstAttribute="top" secondItem="jlc-ff-qxI" secondAttribute="bottom" constant="8" id="yIS-vI-RK5"/>
@@ -258,6 +286,7 @@
                     <connections>
                         <outlet property="bHexField" destination="WbQ-6G-Lsl" id="GMb-Ym-Cxh"/>
                         <outlet property="bSlider" destination="YVU-P4-oX1" id="EJh-Dd-wN7"/>
+                        <outlet property="bottomLayoutConstraint" destination="icl-eU-hd2" id="Ccc-pf-B3v"/>
                         <outlet property="colorImageView" destination="bgX-xK-FSw" id="ggS-le-VRD"/>
                         <outlet property="gHexField" destination="VJ0-6O-lQX" id="Jan-zg-TUO"/>
                         <outlet property="gSlider" destination="pcl-ki-I8Q" id="Wgv-gU-WHm"/>
@@ -267,7 +296,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749.60000000000002" y="359.37031484257875"/>
+            <point key="canvasLocation" x="749.27536231884062" y="358.69565217391306"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -293,4 +322,5 @@
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
+    <color key="tintColor" red="0.90980392156862744" green="0.078431372549019607" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
 </document>

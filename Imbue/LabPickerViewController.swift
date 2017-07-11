@@ -18,6 +18,9 @@ class LabPickerViewController: UIViewController {
 	@IBOutlet var aHexField: UITextField!
 	@IBOutlet var bHexField: UITextField!
 	@IBOutlet var colorImageView: UIImageView!
+	@IBOutlet var bottomLayoutConstraint: NSLayoutConstraint!
+	
+	private var observers = [Any]()
 
 	var colorValues: ColorValue.Lab {
 		get {
@@ -48,17 +51,38 @@ class LabPickerViewController: UIViewController {
 		// Hex fields
 		for field in [lHexField!, aHexField!, bHexField!] {
 			field.returnKeyType = .done
-			field.keyboardType = .asciiCapable
+			field.keyboardType = .numbersAndPunctuation
 			
-			field.addTarget(self, action: #selector(LabPickerViewController.hexFieldChanged), for: .editingDidEnd)
+			field.addTarget(self, action: #selector(LabPickerViewController.hexFieldChanged), for: .editingDidEndOnExit)
 		}
 		
 		// Update
 		updateUI()
 	}
 	
+	func animateForKeyboard(height: CGFloat, duration: TimeInterval, curve: UIViewAnimationCurve) {
+		bottomLayoutConstraint.constant = height
+		view.setNeedsUpdateConstraints()
+		
+		UIView.beginAnimations("keyboard", context: nil)
+		UIView.setAnimationDuration(duration)
+		UIView.setAnimationCurve(curve)
+		view.layoutIfNeeded()
+		UIView.commitAnimations()
+	}
+	
 	override func viewWillAppear(_ animated: Bool) {
+		observers += ViewConvenience.observeKeyboardNotifications(viewController: self, constraint: bottomLayoutConstraint, valueWhenHidden: 12.0)
+		
 		updateUI()
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		let nc = NotificationCenter.default
+		for observer in observers {
+			nc.removeObserver(observer)
+		}
+		observers.removeAll()
 	}
 	
 	var colorValuesFromSliders: ColorValue.Lab {
@@ -71,9 +95,9 @@ class LabPickerViewController: UIViewController {
 	
 	var colorValuesFromHexFields: ColorValue.Lab {
 		return ColorValue.Lab(
-			l: CGFloat(hexString: lHexField.text ?? "") ?? 0,
-			a: CGFloat(hexString: aHexField.text ?? "") ?? 0,
-			b: CGFloat(hexString: bHexField.text ?? "") ?? 0
+			l: lHexField.text.flatMap(CGFloat.NativeType.init).map{ CGFloat($0) } ?? 0,
+			a: aHexField.text.flatMap(CGFloat.NativeType.init).map{ CGFloat($0) } ?? 0,
+			b: bHexField.text.flatMap(CGFloat.NativeType.init).map{ CGFloat($0) } ?? 0
 		)
 	}
 	
@@ -114,6 +138,7 @@ class LabPickerViewController: UIViewController {
 			[kUTTypeUTF8PlainText as String: rgb.hexString]
 		])
 	}
+	
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()

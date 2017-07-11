@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2C481831F127DE100AAF9A1 /* ViewConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C481821F127DE100AAF9A1 /* ViewConvenience.swift */; };
 		B2C834E31F0E305C002B8931 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C834E21F0E305C002B8931 /* AppDelegate.swift */; };
 		B2C834E51F0E305C002B8931 /* LabPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */; };
 		B2C834E71F0E305C002B8931 /* SRGBPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C834E61F0E305C002B8931 /* SRGBPickerViewController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B2C481821F127DE100AAF9A1 /* ViewConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewConvenience.swift; sourceTree = "<group>"; };
 		B2C834DF1F0E305C002B8931 /* Imbue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imbue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2C834E21F0E305C002B8931 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabPickerViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				B2C834E81F0E305C002B8931 /* Main.storyboard */,
+				B2C481821F127DE100AAF9A1 /* ViewConvenience.swift */,
 				B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */,
 				B2C834E61F0E305C002B8931 /* SRGBPickerViewController.swift */,
 			);
@@ -291,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2C834E71F0E305C002B8931 /* SRGBPickerViewController.swift in Sources */,
+				B2C481831F127DE100AAF9A1 /* ViewConvenience.swift in Sources */,
 				B2C835131F0E31F2002B8931 /* Color.swift in Sources */,
 				B2C834E31F0E305C002B8931 /* AppDelegate.swift in Sources */,
 				B2C834E51F0E305C002B8931 /* LabPickerViewController.swift in Sources */,
@@ -548,6 +552,7 @@
 				B2C8350B1F0E305C002B8931 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B2C8350C1F0E305C002B8931 /* Build configuration list for PBXNativeTarget "ImbueTests" */ = {
 			isa = XCConfigurationList;
@@ -556,6 +561,7 @@
 				B2C8350E1F0E305C002B8931 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B2C8350F1F0E305C002B8931 /* Build configuration list for PBXNativeTarget "ImbueUITests" */ = {
 			isa = XCConfigurationList;
@@ -564,6 +570,7 @@
 				B2C835111F0E305C002B8931 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
