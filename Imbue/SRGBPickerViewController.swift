@@ -90,12 +90,12 @@ class SRGBPickerViewController: UIViewController {
 		)
 	}
 	
-	func sliderChanged() {
+	@objc func sliderChanged() {
 		colorValues = colorValuesFromSliders
 		updateUI()
 	}
 	
-	func hexFieldChanged() {
+	@objc func hexFieldChanged() {
 		colorValues = colorValuesFromHexFields
 		updateUI()
 	}
