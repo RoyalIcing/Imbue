@@ -21,7 +21,7 @@ let range: [CGFloat] = [-128, 127, -128, 127]
 let labD50ColorSpace = d50WhitePoint.withUnsafeBufferPointer { (whitePointBuffer) in
 	blackPoint.withUnsafeBufferPointer { (blackPointBuffer) in
 		range.withUnsafeBufferPointer { (rangeBuffer) in
-			CGColorSpace(labWhitePoint: whitePointBuffer.baseAddress, blackPoint: blackPointBuffer.baseAddress, range: rangeBuffer.baseAddress)
+			CGColorSpace(labWhitePoint: whitePointBuffer.baseAddress!, blackPoint: blackPointBuffer.baseAddress, range: rangeBuffer.baseAddress)
 		}
 	}
 }!
