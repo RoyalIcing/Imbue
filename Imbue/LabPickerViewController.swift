@@ -52,6 +52,8 @@ class LabPickerViewController: UIViewController {
 		for field in [lHexField!, aHexField!, bHexField!] {
 			field.returnKeyType = .done
 			field.keyboardType = .numbersAndPunctuation
+			field.autocorrectionType = .no
+			//field.smartDashesType = .no
 			
 			field.addTarget(self, action: #selector(LabPickerViewController.hexFieldChanged), for: .editingDidEndOnExit)
 		}

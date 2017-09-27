@@ -52,6 +52,8 @@ class SRGBPickerViewController: UIViewController {
 		for field in [rHexField!, gHexField!, bHexField!] {
 			field.returnKeyType = .done
 			field.keyboardType = .asciiCapable
+			field.autocorrectionType = .no
+			//field.smartDashesType = .no
 			
 			field.addTarget(self, action: #selector(SRGBPickerViewController.hexFieldChanged), for: .editingDidEndOnExit)
 		}
