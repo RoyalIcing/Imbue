@@ -17,6 +17,7 @@ class LabPickerViewController: UIViewController, ColorProvider {
 	@IBOutlet var lHexField: UITextField!
 	@IBOutlet var aHexField: UITextField!
 	@IBOutlet var bHexField: UITextField!
+	@IBOutlet var labels: [UILabel]!
 	@IBOutlet var colorImageView: UIImageView!
 	@IBOutlet var bottomLayoutConstraint: NSLayoutConstraint!
 	
@@ -36,6 +37,8 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		super.viewDidLoad()
 		
 		colorImageView.addStatusBarVisualEffectView(effect: UIBlurEffect(style: .regular))
+		
+		self.themeUp()
 		
 		// Sliders
 		lSlider.minimumTrackTintColor = UIColor.darkGray
@@ -60,6 +63,8 @@ class LabPickerViewController: UIViewController, ColorProvider {
 			
 			field.addTarget(self, action: #selector(LabPickerViewController.hexFieldChanged), for: .editingDidEndOnExit)
 		}
+		
+		labels.forEach{ $0.themeUp() }
 		
 		// Update
 		updateUI()

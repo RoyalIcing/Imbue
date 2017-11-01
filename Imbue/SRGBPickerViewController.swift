@@ -17,6 +17,7 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 	@IBOutlet var rHexField: UITextField!
 	@IBOutlet var gHexField: UITextField!
 	@IBOutlet var bHexField: UITextField!
+	@IBOutlet var labels: [UILabel]!
 	@IBOutlet var rgbHexField: UITextField!
 	@IBOutlet var colorImageView: UIImageView!
 	@IBOutlet var bottomLayoutConstraint: NSLayoutConstraint!
@@ -39,6 +40,8 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		self.themeUp()
 		
 		//UIApplication.shared.statusBarStyle = .lightContent
 		colorImageView.addStatusBarVisualEffectView(effect: UIBlurEffect(style: .regular))
@@ -66,6 +69,8 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 			
 			field.addTarget(self, action: #selector(SRGBPickerViewController.hexFieldChanged), for: .editingDidEndOnExit)
 		}
+		
+		labels.forEach{ $0.themeUp() }
 		
 		// Update
 		updateUI()

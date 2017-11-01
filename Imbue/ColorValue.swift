@@ -82,6 +82,20 @@ public enum ColorValue : Equatable {
 			return Lab(l: components[0], a: components[1], b: components[2])
 		}
 	}
+	
+	var luminosity: CGFloat? {
+		guard let lab = toLabD50()
+			else { return nil }
+		
+		return lab.l
+	}
+	
+	func toMonochromeLabD50() -> Lab? {
+		guard let l = self.luminosity
+			else { return nil }
+		
+		return Lab(l: l, a: 0, b: 0)
+	}
 }
 
 extension ColorValue.Lab {
