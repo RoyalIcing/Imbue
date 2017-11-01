@@ -9,7 +9,7 @@
 import UIKit
 import MobileCoreServices
 
-class LabPickerViewController: UIViewController {
+class LabPickerViewController: UIViewController, ColorProvider {
 	
 	@IBOutlet var lSlider: UISlider!
 	@IBOutlet var aSlider: UISlider!
@@ -21,13 +21,14 @@ class LabPickerViewController: UIViewController {
 	@IBOutlet var bottomLayoutConstraint: NSLayoutConstraint!
 	
 	private var observers = [Any]()
-
-	var colorValues: ColorValue.Lab {
+	
+	var colorValue: ColorValue {
 		get {
-			return Manager.shared.currentColorValue.toLabD50() ?? ColorValue.Lab(l: 50.0, a: 0.0, b: 0.0)
+			return Manager.shared.currentColorValue
 		}
-		set(lab) {
-			Manager.shared.currentColorValue = .labD50(lab)
+		set(colorValue) {
+			Manager.shared.currentColorValue = colorValue
+			updateUI()
 		}
 	}
 	
@@ -104,43 +105,41 @@ class LabPickerViewController: UIViewController {
 	}
 	
 	@objc func sliderChanged() {
-		colorValues = colorValuesFromSliders
+		labD50 = colorValuesFromSliders
 		updateUI()
 	}
 	
 	@objc func hexFieldChanged() {
-		colorValues = colorValuesFromHexFields
+		labD50 = colorValuesFromHexFields
 		updateUI()
 	}
 	
 	func updateUI() {
-		let colorValues = self.colorValues
-		let cgColor = CGColor.labD50(l: colorValues.l, a: colorValues.a, b: colorValues.b)!
+		let lab = self.labD50
+		let cgColor = CGColor.labD50(l: lab.l, a: lab.a, b: lab.b)!
 		
 		CATransaction.begin()
 		colorImageView.layer.backgroundColor = cgColor
 		CATransaction.commit()
 		
-		lSlider.value = Float(colorValues.l)
-		aSlider.value = Float(colorValues.a)
-		bSlider.value = Float(colorValues.b)
+		lSlider.value = Float(lab.l)
+		aSlider.value = Float(lab.a)
+		bSlider.value = Float(lab.b)
 		
-		lHexField.text = "\(Int(colorValues.l))"
-		aHexField.text = "\(Int(colorValues.a))"
-		bHexField.text = "\(Int(colorValues.b))"
+		lHexField.text = "\(Int(lab.l))"
+		aHexField.text = "\(Int(lab.a))"
+		bHexField.text = "\(Int(lab.b))"
 	}
 	
-	override func copy(_ sender: Any?) {
-		guard let rgb = ColorValue.labD50(self.colorValues).toSRGB()
+	@IBAction override func copy(_ sender: Any?) {
+		ColorValue.labD50(self.labD50).copy(to: UIPasteboard.general)
+	}
+	
+	@IBAction override func paste(_ sender: Any?) {
+		guard let colorValue = ColorValue(pasteboard: .general)
 			else { return }
-		
-		let pb = UIPasteboard.general
-		pb.color = ColorValue.sRGB(rgb).cgColor.map{ UIColor(cgColor: $0) }
-		pb.addItems([
-			[kUTTypeUTF8PlainText as String: rgb.hexString]
-		])
+		self.colorValue = colorValue
 	}
-	
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()

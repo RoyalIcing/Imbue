@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2C19A421FA98EAA000AB250 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C19A411FA98EAA000AB250 /* CoreGraphics.swift */; };
+		B2C19A441FA98FE8000AB250 /* ColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C19A431FA98FE8000AB250 /* ColorProvider.swift */; };
+		B2C19A461FA9906E000AB250 /* ColorValue+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C19A451FA9906E000AB250 /* ColorValue+UIKit.swift */; };
 		B2C481831F127DE100AAF9A1 /* ViewConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C481821F127DE100AAF9A1 /* ViewConvenience.swift */; };
 		B2C834E31F0E305C002B8931 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C834E21F0E305C002B8931 /* AppDelegate.swift */; };
 		B2C834E51F0E305C002B8931 /* LabPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */; };
@@ -39,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B2C19A411FA98EAA000AB250 /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
+		B2C19A431FA98FE8000AB250 /* ColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorProvider.swift; sourceTree = "<group>"; };
+		B2C19A451FA9906E000AB250 /* ColorValue+UIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorValue+UIKit.swift"; sourceTree = "<group>"; };
 		B2C481821F127DE100AAF9A1 /* ViewConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewConvenience.swift; sourceTree = "<group>"; };
 		B2C834DF1F0E305C002B8931 /* Imbue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imbue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2C834E21F0E305C002B8931 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +146,8 @@
 			children = (
 				B2C834E81F0E305C002B8931 /* Main.storyboard */,
 				B2C481821F127DE100AAF9A1 /* ViewConvenience.swift */,
+				B2C19A431FA98FE8000AB250 /* ColorProvider.swift */,
+				B2C19A451FA9906E000AB250 /* ColorValue+UIKit.swift */,
 				B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */,
 				B2C834E61F0E305C002B8931 /* SRGBPickerViewController.swift */,
 			);
@@ -149,6 +157,7 @@
 		B2C835151F0E603D002B8931 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B2C19A411FA98EAA000AB250 /* CoreGraphics.swift */,
 				B2C835121F0E31F2002B8931 /* Color.swift */,
 				B2C835181F0E703F002B8931 /* ColorValue.swift */,
 				B2C835161F0E6DF9002B8931 /* Manager.swift */,
@@ -301,8 +310,11 @@
 				B2C835131F0E31F2002B8931 /* Color.swift in Sources */,
 				B2C834E31F0E305C002B8931 /* AppDelegate.swift in Sources */,
 				B2C834E51F0E305C002B8931 /* LabPickerViewController.swift in Sources */,
+				B2C19A461FA9906E000AB250 /* ColorValue+UIKit.swift in Sources */,
 				B2C835171F0E6DF9002B8931 /* Manager.swift in Sources */,
+				B2C19A441FA98FE8000AB250 /* ColorProvider.swift in Sources */,
 				B2C835191F0E703F002B8931 /* ColorValue.swift in Sources */,
+				B2C19A421FA98EAA000AB250 /* CoreGraphics.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

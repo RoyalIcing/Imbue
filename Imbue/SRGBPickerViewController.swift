@@ -9,7 +9,7 @@
 import UIKit
 import MobileCoreServices
 
-class SRGBPickerViewController: UIViewController {
+class SRGBPickerViewController: UIViewController, ColorProvider {
 
 	@IBOutlet var rSlider: UISlider!
 	@IBOutlet var gSlider: UISlider!
@@ -17,18 +17,24 @@ class SRGBPickerViewController: UIViewController {
 	@IBOutlet var rHexField: UITextField!
 	@IBOutlet var gHexField: UITextField!
 	@IBOutlet var bHexField: UITextField!
+	@IBOutlet var rgbHexField: UITextField!
 	@IBOutlet var colorImageView: UIImageView!
 	@IBOutlet var bottomLayoutConstraint: NSLayoutConstraint!
 	
 	private var observers = [Any]()
 	
-	var colorValues: ColorValue.RGB {
+	var colorValue: ColorValue {
 		get {
-			return Manager.shared.currentColorValue.toSRGB() ?? ColorValue.RGB(r: 0.5, g: 0.5, b: 0.5)
+			return Manager.shared.currentColorValue
 		}
-		set(rgb) {
-			Manager.shared.currentColorValue = .sRGB(rgb)
+		set(colorValue) {
+			Manager.shared.currentColorValue = colorValue
+			updateUI()
 		}
+	}
+	
+	var defaultSRGB: ColorValue.RGB {
+		return ColorValue.RGB(r: 0.5, g: 0.5, b: 0.5)
 	}
 	
 	override func viewDidLoad() {
@@ -76,7 +82,7 @@ class SRGBPickerViewController: UIViewController {
 		observers.removeAll()
 	}
 	
-	var colorValuesFromSliders: ColorValue.RGB {
+	var srgbFromSliders: ColorValue.RGB {
 		return ColorValue.RGB(
 			r: CGFloat(rSlider.value),
 			g: CGFloat(gSlider.value),
@@ -84,7 +90,7 @@ class SRGBPickerViewController: UIViewController {
 		)
 	}
 	
-	var colorValuesFromHexFields: ColorValue.RGB {
+	var srgbFromHexFields: ColorValue.RGB {
 		return ColorValue.RGB(
 			r: CGFloat(hexString: rHexField.text ?? "") ?? 0,
 			g: CGFloat(hexString: gHexField.text ?? "") ?? 0,
@@ -93,39 +99,40 @@ class SRGBPickerViewController: UIViewController {
 	}
 	
 	@objc func sliderChanged() {
-		colorValues = colorValuesFromSliders
-		updateUI()
+		self.srgb = srgbFromSliders
 	}
 	
 	@objc func hexFieldChanged() {
-		colorValues = colorValuesFromHexFields
-		updateUI()
+		self.srgb = srgbFromHexFields
 	}
 	
 	func updateUI() {
-		let colorValues = self.colorValues
-		let cgColor = CGColor.sRGB(r: colorValues.r, g: colorValues.g, b: colorValues.b)
+		let srgb = self.srgb
+		let cgColor = CGColor.sRGB(r: srgb.r, g: srgb.g, b: srgb.b)
 		
 		CATransaction.begin()
 		colorImageView.layer.backgroundColor = cgColor
 		CATransaction.commit()
 		
-		rSlider.value = Float(colorValues.r)
-		gSlider.value = Float(colorValues.g)
-		bSlider.value = Float(colorValues.b)
+		rSlider.value = Float(srgb.r)
+		gSlider.value = Float(srgb.g)
+		bSlider.value = Float(srgb.b)
 		
-		rHexField.text = colorValues.r.hexString
-		gHexField.text = colorValues.g.hexString
-		bHexField.text = colorValues.b.hexString
+		rHexField.text = srgb.r.hexString(minLength: 2)
+		gHexField.text = srgb.g.hexString(minLength: 2)
+		bHexField.text = srgb.b.hexString(minLength: 2)
+		
+		rgbHexField.text = srgb.hexString
 	}
 	
 	@IBAction override func copy(_ sender: Any?) {
-		let rgb = self.colorValues
-		let pb = UIPasteboard.general
-		pb.color = ColorValue.sRGB(rgb).cgColor.map{ UIColor(cgColor: $0) }
-		pb.addItems([
-			[kUTTypeUTF8PlainText as String: rgb.hexString],
-		])
+		ColorValue.sRGB(self.srgb).copy(to: UIPasteboard.general)
+	}
+	
+	@IBAction override func paste(_ sender: Any?) {
+		guard let colorValue = ColorValue(pasteboard: .general)
+			else { return }
+		self.colorValue = colorValue
 	}
 	
 	override func didReceiveMemoryWarning() {
