@@ -16,7 +16,7 @@ func heightIntersecting(keyboardFrame: CGRect, withView view: UIView, layoutGuid
 }
 
 extension UIView {
-	func animateFor(keyboardNotification: Notification, useKeyboardEndFrame: (CGRect) -> ()) {
+	fileprivate func animateFor(keyboardNotification: Notification, useKeyboardEndFrame: (CGRect) -> ()) {
 		guard
 			let info = keyboardNotification.userInfo,
 			let keyboardFrame = info[UIKeyboardFrameEndUserInfoKey] as? CGRect,
@@ -32,6 +32,27 @@ extension UIView {
 		UIView.setAnimationCurve(animationCurve)
 		self.layoutIfNeeded()
 		UIView.commitAnimations()
+	}
+	
+	func addStatusBarVisualEffectView(effect: UIVisualEffect) {
+		let visualEffectView = UIVisualEffectView(effect: effect)
+		visualEffectView.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(visualEffectView)
+		
+		let safeAreaLayoutGuide: UILayoutGuide
+		if #available(iOS 11.0, *) {
+			safeAreaLayoutGuide = self.safeAreaLayoutGuide
+		}
+		else {
+			safeAreaLayoutGuide = self.layoutMarginsGuide
+		}
+		
+		self.addConstraints([
+			visualEffectView.topAnchor.constraint(equalTo: self.topAnchor),
+			visualEffectView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+			visualEffectView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+			visualEffectView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+		])
 	}
 }
 

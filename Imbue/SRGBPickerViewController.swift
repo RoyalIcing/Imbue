@@ -40,6 +40,9 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		//UIApplication.shared.statusBarStyle = .lightContent
+		colorImageView.addStatusBarVisualEffectView(effect: UIBlurEffect(style: .regular))
+		
 		// Sliders
 		rSlider.minimumTrackTintColor = UIColor(red: 0, green: 1, blue: 1, alpha: 1)
 		rSlider.maximumTrackTintColor = UIColor(red: 1, green: 0, blue: 0, alpha: 1)

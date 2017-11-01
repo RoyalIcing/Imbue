@@ -35,6 +35,8 @@ class LabPickerViewController: UIViewController, ColorProvider {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		colorImageView.addStatusBarVisualEffectView(effect: UIBlurEffect(style: .regular))
+		
 		// Sliders
 		lSlider.minimumTrackTintColor = UIColor.darkGray
 		lSlider.maximumTrackTintColor = UIColor.lightGray
