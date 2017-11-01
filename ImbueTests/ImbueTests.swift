@@ -42,6 +42,16 @@ class ImbueTests: XCTestCase {
 		}
 	}
 	
+	func testHex() {
+		XCTAssertEqual(ColorValue.RGB(r: 1, g: 1, b: 1).hexString, "#FFFFFF")
+		XCTAssertEqual(ColorValue.RGB(r: 0, g: 0, b: 0).hexString, "#000000")
+		
+		XCTAssertEqual(ColorValue.RGB(hexString: "#FFFFFF"), ColorValue.RGB(r: 1, g: 1, b: 1))
+		XCTAssertEqual(ColorValue.RGB(hexString: "#ffffff"), ColorValue.RGB(r: 1, g: 1, b: 1))
+		XCTAssertEqual(ColorValue.RGB(hexString: "#000000"), ColorValue.RGB(r: 0, g: 0, b: 0))
+		XCTAssertEqual(ColorValue.RGB(hexString: "#FF00FF"), ColorValue.RGB(r: 1, g: 0, b: 1))
+	}
+	
 	func testColorValue() {
 		do {
 			let value = ColorValue.sRGB(ColorValue.RGB(r: 0.5, g: 0.5, b: 0.5))

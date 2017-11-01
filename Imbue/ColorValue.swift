@@ -146,7 +146,7 @@ extension ColorValue.RGB {
 	}
 	
 	public var hexString: String {
-		return "#" + [r.hexString, g.hexString, b.hexString].joined()
+		return "#" + [r.hexString(minLength: 2), g.hexString(minLength: 2), b.hexString(minLength: 2)].joined()
 	}
 }
 
