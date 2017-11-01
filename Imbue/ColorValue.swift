@@ -123,8 +123,45 @@ extension ColorValue.RGB {
 		]
 	}
 	
-	var hexString: String {
-		return [r.hexString, g.hexString, b.hexString].joined()
+	public init?(hexString: String) {
+		
+		guard
+			let skipRange = hexString.range(of: "^[\\s#]*", options: .regularExpression),
+			let rRange = hexString.range(of: "[0-9a-fA-F]{2}", options: .regularExpression, range: skipRange.upperBound..<hexString.endIndex),
+			let gRange = hexString.range(of: "[0-9a-fA-F]{2}", options: .regularExpression, range: rRange.upperBound..<hexString.endIndex),
+			let bRange = hexString.range(of: "[0-9a-fA-F]{2}", options: .regularExpression, range: gRange.upperBound..<hexString.endIndex)
+			else { return nil }
+		
+		let rString = hexString[rRange]
+		let gString = hexString[gRange]
+		let bString = hexString[bRange]
+		
+		guard
+			let r = CGFloat(hexString: rString),
+			let g = CGFloat(hexString: gString),
+			let b = CGFloat(hexString: bString)
+			else { return nil }
+		
+		self.init(r: r, g: g, b: b)
+	}
+	
+	public var hexString: String {
+		return "#" + [r.hexString, g.hexString, b.hexString].joined()
+	}
+}
+
+extension ColorValue.RGB {
+	public init?(cgColor: CGColor) {
+		guard let sRGBCGColor = cgColor.toSRGB(),
+			sRGBCGColor.numberOfComponents == 4,
+			let components = sRGBCGColor.components
+			else { return nil }
+		
+		let r = components[0]
+		let g = components[1]
+		let b = components[2]
+		
+		self.init(r: r, g: g, b: b)
 	}
 }
 

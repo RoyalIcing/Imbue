@@ -76,8 +76,10 @@ extension CGFloat {
 		return String(uint255, radix: 16, uppercase: true)
 	}
 	
-	init?(hexString: String) {
-		let hexString = hexString.replacingOccurrences(of: "0x", with: "")
+	init?<S>(hexString hexStringInput: S)
+		where S : StringProtocol
+	{
+		let hexString = String(hexStringInput).replacingOccurrences(of: "0x", with: "")
 		guard let uint255 = UInt8(hexString, radix: 16)
 			else { return nil }
 		
