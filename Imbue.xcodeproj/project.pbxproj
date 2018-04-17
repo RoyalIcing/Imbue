@@ -235,7 +235,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0930;
-				ORGANIZATIONNAME = "Burnt Caramel";
+				ORGANIZATIONNAME = "Royal Icing";
 				TargetAttributes = {
 					B2C834DE1F0E305C002B8931 = {
 						CreatedOnToolsVersion = 8.3.3;
