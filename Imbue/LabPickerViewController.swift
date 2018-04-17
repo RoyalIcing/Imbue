@@ -19,6 +19,7 @@ class LabPickerViewController: UIViewController, ColorProvider {
 	@IBOutlet var bHexField: UITextField!
 	@IBOutlet var labels: [UILabel]!
 	@IBOutlet var colorImageView: UIImageView!
+	@IBOutlet var sRGBImageView: UIImageView!
 	@IBOutlet var bottomLayoutConstraint: NSLayoutConstraint!
 	
 	private var observers = [Any]()
@@ -37,6 +38,7 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		super.viewDidLoad()
 		
 		colorImageView.addStatusBarVisualEffectView(effect: UIBlurEffect(style: .regular))
+		sRGBImageView.addStatusBarVisualEffectView(effect: UIBlurEffect(style: .regular))
 		
 		self.themeUp()
 		
@@ -127,7 +129,10 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		
 		CATransaction.begin()
 		colorImageView.layer.backgroundColor = cgColor
+		sRGBImageView.layer.backgroundColor = cgColor.toSRGB()
 		CATransaction.commit()
+		
+		print("srgb \(cgColor.toSRGB())")
 		
 		lSlider.value = Float(lab.l)
 		aSlider.value = Float(lab.a)
