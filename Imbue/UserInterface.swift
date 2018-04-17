@@ -8,9 +8,10 @@
 
 import UIKit
 
-private enum UI {
+public enum UI {
 	static let backgroundColor = ColorValue.labD50(ColorValue.Lab(l: 8, a: 0, b: 0)).cgColor!
 	static let textColor = ColorValue.labD50(ColorValue.Lab(l: 98, a: 0, b: 0)).cgColor!
+	static let tintColor = ColorValue.labD50(ColorValue.Lab(l: 100, a: 0, b: 0)).cgColor!
 }
 
 extension UIViewController {
@@ -19,6 +20,7 @@ extension UIViewController {
 		
 		if let tbc = self as? UITabBarController {
 			tbc.tabBar.barTintColor = UIColor(cgColor: UI.backgroundColor)
+			tbc.tabBar.tintColor = UIColor(cgColor: UI.tintColor)
 		}
 	}
 }

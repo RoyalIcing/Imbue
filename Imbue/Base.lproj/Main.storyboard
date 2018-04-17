@@ -428,5 +428,5 @@
         <image name="Lab" width="22" height="22"/>
         <image name="sRGB" width="22" height="22"/>
     </resources>
-    <color key="tintColor" red="1" green="0.0" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
