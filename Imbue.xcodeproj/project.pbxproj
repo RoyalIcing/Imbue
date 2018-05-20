@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B22075671FA9DA2100EFC187 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22075661FA9DA2000EFC187 /* Main.swift */; };
 		B220756A1FA9DC2900EFC187 /* UserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22075681FA9DA6000EFC187 /* UserInterface.swift */; };
+		B2557E0C20B1A610005DFAE8 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = B2557E0B20B1A610005DFAE8 /* Cartfile */; };
 		B2C19A421FA98EAA000AB250 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C19A411FA98EAA000AB250 /* CoreGraphics.swift */; };
 		B2C19A441FA98FE8000AB250 /* ColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C19A431FA98FE8000AB250 /* ColorProvider.swift */; };
 		B2C19A461FA9906E000AB250 /* ColorValue+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C19A451FA9906E000AB250 /* ColorValue+UIKit.swift */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		B22075661FA9DA2000EFC187 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		B22075681FA9DA6000EFC187 /* UserInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterface.swift; sourceTree = "<group>"; };
+		B2557E0B20B1A610005DFAE8 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		B2C19A411FA98EAA000AB250 /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
 		B2C19A431FA98FE8000AB250 /* ColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorProvider.swift; sourceTree = "<group>"; };
 		B2C19A451FA9906E000AB250 /* ColorValue+UIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorValue+UIKit.swift"; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 		B2C834D61F0E305C002B8931 = {
 			isa = PBXGroup;
 			children = (
+				B2557E0B20B1A610005DFAE8 /* Cartfile */,
 				B2C834E11F0E305C002B8931 /* Imbue */,
 				B2C834F81F0E305C002B8931 /* ImbueTests */,
 				B2C835031F0E305C002B8931 /* ImbueUITests */,
@@ -286,6 +289,7 @@
 			files = (
 				B2C834EF1F0E305C002B8931 /* LaunchScreen.storyboard in Resources */,
 				B2C834EC1F0E305C002B8931 /* Assets.xcassets in Resources */,
+				B2557E0C20B1A610005DFAE8 /* Cartfile in Resources */,
 				B2C834EA1F0E305C002B8931 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

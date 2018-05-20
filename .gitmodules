@@ -1,0 +1,3 @@
+[submodule "Carthage/Checkouts/Shohin"]
+	path = Carthage/Checkouts/Shohin
+	url = https://github.com/RoyalIcing/Shohin.git
