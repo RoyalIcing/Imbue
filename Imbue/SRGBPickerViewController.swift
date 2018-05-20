@@ -22,6 +22,8 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 	@IBOutlet var colorImageView: UIImageView!
 	@IBOutlet var bottomLayoutConstraint: NSLayoutConstraint!
 	
+	private var textExamples: TextExamplesContext.Bud!
+	
 	private var observers = [Any]()
 	
 	var colorValue: ColorValue {
@@ -71,6 +73,8 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 		}
 		
 		labels.forEach{ $0.themeUp() }
+		
+		textExamples = TextExamplesContext.make(view: colorImageView)
 		
 		// Update
 		updateUI()

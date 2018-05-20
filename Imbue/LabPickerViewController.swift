@@ -132,7 +132,7 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		sRGBImageView.layer.backgroundColor = cgColor.toSRGB()
 		CATransaction.commit()
 		
-		print("srgb \(cgColor.toSRGB())")
+		print("srgb", cgColor.toSRGB()!)
 		
 		lSlider.value = Float(lab.l)
 		aSlider.value = Float(lab.a)
