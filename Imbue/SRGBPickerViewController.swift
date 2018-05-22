@@ -74,7 +74,10 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 		
 		labels.forEach{ $0.themeUp() }
 		
-		textExamples = TextExamplesContext.make(view: colorImageView)
+		textExamples = TextExamplesContext.make(
+			model: TextExamplesContext.Model(backgroundSRGB: self.srgb),
+			view: colorImageView
+		)
 		
 		// Update
 		updateUI()
@@ -135,6 +138,8 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 		bHexField.text = srgb.b.hexString(minLength: 2)
 		
 		rgbHexField.text = srgb.hexString
+		
+		textExamples.backgroundSRGB = self.srgb
 	}
 	
 	@IBAction override func copy(_ sender: Any?) {

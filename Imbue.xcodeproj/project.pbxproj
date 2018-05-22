@@ -14,6 +14,7 @@
 		B2557E1B20B1B0B0005DFAE8 /* Changes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2557E1A20B1B0B0005DFAE8 /* Changes.swift */; };
 		B2557E1D20B1B5F0005DFAE8 /* Shohin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2557E1C20B1B5EF005DFAE8 /* Shohin.framework */; };
 		B2557E1E20B1B5F0005DFAE8 /* Shohin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B2557E1C20B1B5EF005DFAE8 /* Shohin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B292C03020B4508100115E61 /* WCAG.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292C02F20B4508000115E61 /* WCAG.swift */; };
 		B2C19A421FA98EAA000AB250 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C19A411FA98EAA000AB250 /* CoreGraphics.swift */; };
 		B2C19A441FA98FE8000AB250 /* ColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C19A431FA98FE8000AB250 /* ColorProvider.swift */; };
 		B2C19A461FA9906E000AB250 /* ColorValue+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C19A451FA9906E000AB250 /* ColorValue+UIKit.swift */; };
@@ -69,6 +70,7 @@
 		B2557E1820B1ACAC005DFAE8 /* ViewElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewElements.swift; sourceTree = "<group>"; };
 		B2557E1A20B1B0B0005DFAE8 /* Changes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Changes.swift; sourceTree = "<group>"; };
 		B2557E1C20B1B5EF005DFAE8 /* Shohin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Shohin.framework; path = Carthage/Build/iOS/Shohin.framework; sourceTree = "<group>"; };
+		B292C02F20B4508000115E61 /* WCAG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCAG.swift; sourceTree = "<group>"; };
 		B2C19A411FA98EAA000AB250 /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
 		B2C19A431FA98FE8000AB250 /* ColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorProvider.swift; sourceTree = "<group>"; };
 		B2C19A451FA9906E000AB250 /* ColorValue+UIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorValue+UIKit.swift"; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				B2C19A411FA98EAA000AB250 /* CoreGraphics.swift */,
 				B2C835121F0E31F2002B8931 /* Color.swift */,
 				B2C835181F0E703F002B8931 /* ColorValue.swift */,
+				B292C02F20B4508000115E61 /* WCAG.swift */,
 				B2C835161F0E6DF9002B8931 /* Manager.swift */,
 			);
 			name = Model;
@@ -349,6 +352,7 @@
 				B2557E1B20B1B0B0005DFAE8 /* Changes.swift in Sources */,
 				B2C834E31F0E305C002B8931 /* AppDelegate.swift in Sources */,
 				B2C834E51F0E305C002B8931 /* LabPickerViewController.swift in Sources */,
+				B292C03020B4508100115E61 /* WCAG.swift in Sources */,
 				B2C19A461FA9906E000AB250 /* ColorValue+UIKit.swift in Sources */,
 				B2C835171F0E6DF9002B8931 /* Manager.swift in Sources */,
 				B2C19A441FA98FE8000AB250 /* ColorProvider.swift in Sources */,

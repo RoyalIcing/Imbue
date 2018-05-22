@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import Shohin
 
 
@@ -20,33 +21,71 @@ struct TextChoice : OptionSet {
 	static let light = TextChoice(rawValue: 1 << 4)
 	static let dark = TextChoice(rawValue: 1 << 5)
 	
+	var textColor: UIColor {
+		if self.contains(.light) {
+			return .white
+		}
+		else {
+			return .black
+		}
+	}
+	
 	func labelProps<Msg>() -> [LabelProp<Msg>] {
 		var fontSize: CGFloat = 17
 		var fontWeight: UIFont.Weight = .regular
 		var fontWeightText = "regular"
-		let color: UIColor
 		
-		if (self.contains(.size24)) {
+		if self.contains(.size24) {
 			fontSize = 24
 		}
 		
-		if (self.contains(.boldWeight)) {
+		if self.contains(.boldWeight) {
 			fontWeight = .bold
 			fontWeightText = "bold"
 		}
 		
-		if (self.contains(.light)) {
-			color = .white
-		}
-		else {
-			color = .black
-		}
-		
 		return [
 			.set(\.font, to: UIFont.systemFont(ofSize: fontSize, weight: fontWeight)),
-			.set(\.textColor, to: color),
+			.set(\.textColor, to: self.textColor),
 			.text("\(Int(fontSize)) px \(fontWeightText)")
 		]
+	}
+	
+	var wcagLuminance: WCAGLuminance {
+		if self.contains(.light) {
+			return .white
+		}
+		else {
+			return .black
+		}
+	}
+	
+	var aaContrastRatio: CGFloat {
+		if self.contains(.boldWeight) {
+			return 3
+		}
+		else {
+			if self.contains(.size17) {
+				return 4.5
+			}
+			else {
+				return 3
+			}
+		}
+	}
+	
+	var aaaContrastRatio: CGFloat {
+		if self.contains(.boldWeight) {
+			return 4.5
+		}
+		else {
+			if self.contains(.size17) {
+				return 7
+			}
+			else {
+				return 4.5
+			}
+		}
 	}
 }
 
@@ -61,16 +100,53 @@ let textChoices: [TextChoice] = [
 ]
 
 enum TextExamplesContext {
-	typealias Model = ()
-	typealias Msg = Never
-	typealias Bud = Program<Model, Msg>
+	struct Model {
+		var backgroundSRGB: ColorValue.RGB
+	}
 	
-	static func make(view: UIView, guideForKey: @escaping (String) -> UILayoutGuide? = { _ in nil }) -> Bud {
-		return Program(view: view, model: (), render: render, layoutGuideForKey: guideForKey, layout: layout)
+	enum Msg {
+		case changeBackgroundSRGB(ColorValue.RGB)
+	}
+	
+	class Bud {
+		let program: Program<Model, Msg>
+		
+		fileprivate init(program: Program<Model, Msg>) {
+			self.program = program
+		}
+		
+		var backgroundSRGB: ColorValue.RGB {
+			get {
+				return self.program.model.backgroundSRGB
+			}
+			set {
+				self.program.send(.changeBackgroundSRGB(newValue))
+			}
+		}
+	}
+	
+	static func make(model: Model, view: UIView, guideForKey: @escaping (String) -> UILayoutGuide? = { _ in nil }) -> Bud {
+		let program = Program(view: view, model: model, update: update, render: render, layoutGuideForKey: guideForKey, layout: layout)
+		return Bud(program: program)
+	}
+	
+	private static func update(message: Msg, model: inout Model) -> Command<Msg> {
+		switch message {
+		case let .changeBackgroundSRGB(newValue):
+			model.backgroundSRGB = newValue
+		}
+		return []
+	}
+	
+	private static func keyForContrastRatio(textChoice: TextChoice) -> String {
+		return "\(textChoice) contrastRatio"
 	}
 	
 	private static func render(model: Model) -> [Element<Msg>] {
-		return textExamples
+		return [
+			textExamples,
+			contrastRatios(model: model)
+			].flatMap { $0 }
 	}
 	
 	private static func layout(model: Model, context: LayoutContext) -> [NSLayoutConstraint] {
@@ -95,10 +171,62 @@ enum TextExamplesContext {
 			])
 		}
 		
+		for textChoice in textChoices {
+			let contrastRatioKey = keyForContrastRatio(textChoice: textChoice)
+			if let contrastRatioLabel = context.view(contrastRatioKey) {
+				let mainLabel = context.view(textChoice)!
+				constraints.append(contentsOf: [
+					contrastRatioLabel.leadingAnchor.constraint(equalTo: mainLabel.trailingAnchor, constant: 12.0),
+					contrastRatioLabel.firstBaselineAnchor.constraint(equalTo: mainLabel.firstBaselineAnchor)
+					])
+			}
+		}
+		
 		return constraints
 	}
 	
 	private static let textExamples: [Element<Msg>] = textChoices.map { textChoice in
 		label(textChoice, textChoice.labelProps())
+	}
+	
+	private static var smallCapsFont: UIFont {
+		let systemFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+		let smallCapsDesc = systemFont.fontDescriptor.addingAttributes([
+			.featureSettings: [
+				[
+					kCTFontFeatureTypeIdentifierKey: kUpperCaseType,
+					kCTFontFeatureSelectorIdentifierKey: kUpperCaseSmallCapsSelector
+				],
+				[
+					kCTFontFeatureTypeIdentifierKey: kNumberSpacingType,
+					kCTFontFeatureSelectorIdentifierKey: kMonospacedNumbersSelector
+				]
+			]
+			])
+		return UIFont(descriptor: smallCapsDesc, size: UIFont.systemFontSize)
+	}
+	
+	private static func contrastRatios(model: Model) -> [Element<Msg>] {
+		return textChoices.map { textChoice in
+			let (lighter, darker) = getLighterAndDarker(model.backgroundSRGB.wcagLuminance, textChoice.wcagLuminance)
+			let contrastRatio = calculateContrastRatio(lighter: lighter, darker: darker)
+			let text: String
+			let formatted = { "\((contrastRatio * 100.0).rounded() / 100.0)" }
+			if contrastRatio >= textChoice.aaaContrastRatio {
+				text = "AAA \(formatted())"
+			}
+			else if contrastRatio >= textChoice.aaContrastRatio {
+				text = "AA \(formatted())"
+			}
+			else {
+				text = " "
+			}
+			
+			return label(keyForContrastRatio(textChoice: textChoice), [
+				.text(text),
+				.set(\.font, to: smallCapsFont),
+				.set(\.textColor, to: textChoice.textColor),
+				])
+		}
 	}
 }

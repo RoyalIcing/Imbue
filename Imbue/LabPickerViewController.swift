@@ -71,6 +71,7 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		labels.forEach{ $0.themeUp() }
 		
 		textExamples = TextExamplesContext.make(
+			model: TextExamplesContext.Model(backgroundSRGB: self.srgb),
 			view: self.view,
 			guideForKey: { [weak self]
 				key in
@@ -155,6 +156,8 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		lHexField.text = "\(Int(lab.l))"
 		aHexField.text = "\(Int(lab.a))"
 		bHexField.text = "\(Int(lab.b))"
+		
+		textExamples.backgroundSRGB = self.srgb
 	}
 	
 	@IBAction override func copy(_ sender: Any?) {
