@@ -65,8 +65,8 @@ enum TextExamplesContext {
 	typealias Msg = Never
 	typealias Bud = Program<Model, Msg>
 	
-	static func make(view: UIView) -> Bud {
-		return Program(view: view, model: (), render: render, layout: layout)
+	static func make(view: UIView, guideForKey: @escaping (String) -> UILayoutGuide? = { _ in nil }) -> Bud {
+		return Program(view: view, model: (), render: render, layoutGuideForKey: guideForKey, layout: layout)
 	}
 	
 	private static func render(model: Model) -> [Element<Msg>] {
@@ -75,13 +75,14 @@ enum TextExamplesContext {
 	
 	private static func layout(model: Model, context: LayoutContext) -> [NSLayoutConstraint] {
 		let margins = context.marginsGuide
+		let yGuide = context.guide("y")
 		var constraints = [NSLayoutConstraint]()
 		
 		let first = context.view(textChoices.first!)!
 		let mid = context.view(textChoices[(textChoices.count - 1) / 2])!
 		constraints.append(contentsOf: [
 			first.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
-			mid.centerYAnchor.constraint(equalTo: margins.centerYAnchor)
+			mid.centerYAnchor.constraint(equalTo: yGuide?.centerYAnchor ?? margins.centerYAnchor)
 		])
 		
 		for (topChoice, bottomChoice) in zip(textChoices, textChoices[1...]) {

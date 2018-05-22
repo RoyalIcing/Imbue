@@ -22,6 +22,8 @@ class LabPickerViewController: UIViewController, ColorProvider {
 	@IBOutlet var sRGBImageView: UIImageView!
 	@IBOutlet var bottomLayoutConstraint: NSLayoutConstraint!
 	
+	private var textExamples: TextExamplesContext.Bud!
+	
 	private var observers = [Any]()
 	
 	var colorValue: ColorValue {
@@ -67,6 +69,18 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		}
 		
 		labels.forEach{ $0.themeUp() }
+		
+		textExamples = TextExamplesContext.make(
+			view: self.view,
+			guideForKey: { [weak self]
+				key in
+				switch key {
+				case "y":
+					return self?.colorImageView.layoutMarginsGuide
+				default:
+					return nil
+				}
+		})
 		
 		// Update
 		updateUI()

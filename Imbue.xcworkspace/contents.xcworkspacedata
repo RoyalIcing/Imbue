@@ -5,7 +5,7 @@
       location = "container:Imbue.xcodeproj">
    </FileRef>
    <Group
-      location = "group:../Carthage/Checkouts/Shohin"
+      location = "container:Carthage/Checkouts/Shohin"
       name = "Shohin">
       <Group
          location = "group:Counter Shohin Example"
