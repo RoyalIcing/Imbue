@@ -76,7 +76,16 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 		
 		textExamples = TextExamplesContext.make(
 			model: TextExamplesContext.Model(backgroundSRGB: self.srgb),
-			view: colorImageView
+			view: self.view,
+			guideForKey: { [weak self]
+				key in
+				switch key {
+				case "y":
+					return self?.colorImageView.layoutMarginsGuide
+				default:
+					return nil
+				}
+			}
 		)
 		
 		// Update
