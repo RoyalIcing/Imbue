@@ -14,6 +14,8 @@
 		B2557E1B20B1B0B0005DFAE8 /* Changes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2557E1A20B1B0B0005DFAE8 /* Changes.swift */; };
 		B2557E1D20B1B5F0005DFAE8 /* Shohin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2557E1C20B1B5EF005DFAE8 /* Shohin.framework */; };
 		B2557E1E20B1B5F0005DFAE8 /* Shohin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B2557E1C20B1B5EF005DFAE8 /* Shohin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B28A787F20BA82B50070E450 /* AdjustViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A787E20BA82B50070E450 /* AdjustViewController.swift */; };
+		B28A788320BACE910070E450 /* ColorAdjustments.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A788220BACE910070E450 /* ColorAdjustments.swift */; };
 		B292C03020B4508100115E61 /* WCAG.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292C02F20B4508000115E61 /* WCAG.swift */; };
 		B2C19A421FA98EAA000AB250 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C19A411FA98EAA000AB250 /* CoreGraphics.swift */; };
 		B2C19A441FA98FE8000AB250 /* ColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C19A431FA98FE8000AB250 /* ColorProvider.swift */; };
@@ -70,6 +72,8 @@
 		B2557E1820B1ACAC005DFAE8 /* ViewElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewElements.swift; sourceTree = "<group>"; };
 		B2557E1A20B1B0B0005DFAE8 /* Changes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Changes.swift; sourceTree = "<group>"; };
 		B2557E1C20B1B5EF005DFAE8 /* Shohin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Shohin.framework; path = Carthage/Build/iOS/Shohin.framework; sourceTree = "<group>"; };
+		B28A787E20BA82B50070E450 /* AdjustViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustViewController.swift; sourceTree = "<group>"; };
+		B28A788220BACE910070E450 /* ColorAdjustments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAdjustments.swift; sourceTree = "<group>"; };
 		B292C02F20B4508000115E61 /* WCAG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCAG.swift; sourceTree = "<group>"; };
 		B2C19A411FA98EAA000AB250 /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
 		B2C19A431FA98FE8000AB250 /* ColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorProvider.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 				B2C19A451FA9906E000AB250 /* ColorValue+UIKit.swift */,
 				B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */,
 				B2C834E61F0E305C002B8931 /* SRGBPickerViewController.swift */,
+				B28A787E20BA82B50070E450 /* AdjustViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -196,6 +201,7 @@
 				B2C19A411FA98EAA000AB250 /* CoreGraphics.swift */,
 				B2C835121F0E31F2002B8931 /* Color.swift */,
 				B2C835181F0E703F002B8931 /* ColorValue.swift */,
+				B28A788220BACE910070E450 /* ColorAdjustments.swift */,
 				B292C02F20B4508000115E61 /* WCAG.swift */,
 				B2C835161F0E6DF9002B8931 /* Manager.swift */,
 			);
@@ -346,6 +352,7 @@
 			files = (
 				B2C834E71F0E305C002B8931 /* SRGBPickerViewController.swift in Sources */,
 				B2C481831F127DE100AAF9A1 /* ViewConvenience.swift in Sources */,
+				B28A788320BACE910070E450 /* ColorAdjustments.swift in Sources */,
 				B2557E1920B1ACAC005DFAE8 /* ViewElements.swift in Sources */,
 				B22075671FA9DA2100EFC187 /* Main.swift in Sources */,
 				B2C835131F0E31F2002B8931 /* Color.swift in Sources */,
@@ -359,6 +366,7 @@
 				B2C835191F0E703F002B8931 /* ColorValue.swift in Sources */,
 				B220756A1FA9DC2900EFC187 /* UserInterface.swift in Sources */,
 				B2C19A421FA98EAA000AB250 /* CoreGraphics.swift in Sources */,
+				B28A787F20BA82B50070E450 /* AdjustViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

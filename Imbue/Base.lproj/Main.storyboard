@@ -85,14 +85,6 @@
                                     <action selector="paste:" destination="9pv-A4-QxB" eventType="touchUpInside" id="tag-9p-KCp"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYi-aO-PLC">
-                                <rect key="frame" x="71.333333333333329" y="573" width="34" height="30"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                <state key="normal" title="Gray"/>
-                                <connections>
-                                    <action selector="copy:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="dlG-iS-3Ka"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="50" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="A9U-cq-MwW">
                                 <rect key="frame" x="284" y="611" width="75" height="30"/>
                                 <accessibility key="accessibilityConfiguration" label="Luminosity hex field"/>
@@ -122,7 +114,6 @@
                         <constraints>
                             <constraint firstItem="CQZ-eh-dZ4" firstAttribute="leading" secondItem="q02-lV-JqT" secondAttribute="leading" id="2CF-a7-xsZ"/>
                             <constraint firstItem="Tmb-8o-ogY" firstAttribute="bottom" secondItem="CQZ-eh-dZ4" secondAttribute="bottom" constant="12" identifier="keyboardTarget" id="2HI-jv-MBt"/>
-                            <constraint firstItem="yhs-u1-Ymd" firstAttribute="leading" secondItem="lYi-aO-PLC" secondAttribute="trailing" constant="20" id="3Cn-ad-nTI"/>
                             <constraint firstItem="kZJ-6G-4sE" firstAttribute="leading" secondItem="yhs-u1-Ymd" secondAttribute="trailing" constant="20" id="3LR-ia-a3d"/>
                             <constraint firstItem="LpD-tm-UPh" firstAttribute="leading" secondItem="q02-lV-JqT" secondAttribute="leading" id="6WP-EG-4um"/>
                             <constraint firstAttribute="trailingMargin" secondItem="A9U-cq-MwW" secondAttribute="trailing" priority="750" id="8RK-nj-vqG"/>
@@ -142,7 +133,6 @@
                             <constraint firstItem="yhs-u1-Ymd" firstAttribute="top" secondItem="0jh-lZ-Q5F" secondAttribute="bottom" constant="8" id="dTO-HW-yd7"/>
                             <constraint firstItem="u3p-q0-arX" firstAttribute="centerY" secondItem="LpD-tm-UPh" secondAttribute="centerY" id="dnK-sG-MR5"/>
                             <constraint firstItem="h8u-rp-5C9" firstAttribute="centerY" secondItem="q02-lV-JqT" secondAttribute="centerY" id="geA-8M-rKc"/>
-                            <constraint firstItem="lYi-aO-PLC" firstAttribute="centerY" secondItem="yhs-u1-Ymd" secondAttribute="centerY" id="h5K-av-tCH"/>
                             <constraint firstItem="kZJ-6G-4sE" firstAttribute="centerY" secondItem="yhs-u1-Ymd" secondAttribute="centerY" id="heQ-2M-OzV"/>
                             <constraint firstItem="0jh-lZ-Q5F" firstAttribute="width" secondItem="yht-lH-BQk" secondAttribute="width" id="htI-rg-0W7"/>
                             <constraint firstItem="bog-mz-UdY" firstAttribute="leading" secondItem="h8u-rp-5C9" secondAttribute="leading" id="i08-4d-9e1"/>
@@ -270,14 +260,6 @@
                                     <action selector="paste:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="lRF-7E-MpL"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JuU-zU-lr0">
-                                <rect key="frame" x="131" y="573" width="34" height="30"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                <state key="normal" title="Gray"/>
-                                <connections>
-                                    <action selector="copy:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="DHz-sy-QqL"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="#FFFFFF" borderStyle="roundedRect" placeholder="000000" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Rs-d2-aTD">
                                 <rect key="frame" x="279" y="573" width="80" height="30"/>
                                 <constraints>
@@ -292,7 +274,6 @@
                         <constraints>
                             <constraint firstItem="Xkn-0f-bTs" firstAttribute="centerY" secondItem="pcl-ki-I8Q" secondAttribute="centerY" id="0KR-gz-rZB"/>
                             <constraint firstItem="VJ0-6O-lQX" firstAttribute="trailing" secondItem="dNb-4F-aPi" secondAttribute="trailing" id="1Eh-VX-Pem"/>
-                            <constraint firstItem="JuU-zU-lr0" firstAttribute="centerY" secondItem="5Sx-r6-27U" secondAttribute="centerY" id="1en-eD-UPj"/>
                             <constraint firstItem="Mpc-45-3gv" firstAttribute="leading" secondItem="B3m-dq-DY7" secondAttribute="leading" id="4EK-dx-uHH"/>
                             <constraint firstItem="WbQ-6G-Lsl" firstAttribute="leading" secondItem="YVU-P4-oX1" secondAttribute="trailing" constant="8" id="5J0-F8-EHn"/>
                             <constraint firstItem="dNb-4F-aPi" firstAttribute="leading" secondItem="jlc-ff-qxI" secondAttribute="trailing" constant="8" symbolic="YES" id="5vq-ti-Cij"/>
@@ -319,7 +300,6 @@
                             <constraint firstItem="3Rs-d2-aTD" firstAttribute="trailing" secondItem="dNb-4F-aPi" secondAttribute="trailing" id="ini-LP-uBn"/>
                             <constraint firstItem="5Sx-r6-27U" firstAttribute="top" secondItem="bgX-xK-FSw" secondAttribute="bottom" constant="8" id="jWO-uT-miD"/>
                             <constraint firstAttribute="trailing" secondItem="bgX-xK-FSw" secondAttribute="trailing" id="kg6-lN-6lF"/>
-                            <constraint firstItem="5Sx-r6-27U" firstAttribute="leading" secondItem="JuU-zU-lr0" secondAttribute="trailing" constant="12" id="pbo-oz-aDI"/>
                             <constraint firstItem="3Rs-d2-aTD" firstAttribute="leading" secondItem="XKc-fM-cSb" secondAttribute="trailing" constant="12" id="qeH-9k-Il4"/>
                             <constraint firstItem="VJ0-6O-lQX" firstAttribute="width" secondItem="WbQ-6G-Lsl" secondAttribute="width" id="qwL-6e-y5r"/>
                             <constraint firstAttribute="bottom" secondItem="YVU-P4-oX1" secondAttribute="bottom" constant="12" id="s0R-GP-8QP"/>
@@ -358,7 +338,7 @@
         <!--Adjust-->
         <scene sceneID="Kvr-cN-RK7">
             <objects>
-                <tableViewController id="BJI-E3-CJr" userLabel="Adjust" sceneMemberID="viewController">
+                <tableViewController id="BJI-E3-CJr" userLabel="Adjust" customClass="AdjustViewController" customModule="Imbue" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hoE-64-aKo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
