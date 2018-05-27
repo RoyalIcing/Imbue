@@ -14,8 +14,8 @@ import Shohin
 struct TextChoice : OptionSet {
 	let rawValue: Int
 	
-	static let size17 = TextChoice(rawValue: 1 << 0)
-	static let size24 = TextChoice(rawValue: 1 << 1)
+	static let sizeNormal = TextChoice(rawValue: 1 << 0)
+	static let sizeLarge = TextChoice(rawValue: 1 << 1)
 	static let regularWeight = TextChoice(rawValue: 1 << 2)
 	static let boldWeight = TextChoice(rawValue: 1 << 3)
 	static let light = TextChoice(rawValue: 1 << 4)
@@ -35,7 +35,7 @@ struct TextChoice : OptionSet {
 		var fontWeight: UIFont.Weight = .regular
 		var fontWeightText = "regular"
 		
-		if self.contains(.size24) {
+		if self.contains(.sizeLarge) {
 			fontSize = 24
 		}
 		
@@ -65,7 +65,7 @@ struct TextChoice : OptionSet {
 			return 3
 		}
 		else {
-			if self.contains(.size17) {
+			if self.contains(.sizeNormal) {
 				return 4.5
 			}
 			else {
@@ -79,7 +79,7 @@ struct TextChoice : OptionSet {
 			return 4.5
 		}
 		else {
-			if self.contains(.size17) {
+			if self.contains(.sizeNormal) {
 				return 7
 			}
 			else {
@@ -91,12 +91,12 @@ struct TextChoice : OptionSet {
 
 
 let textChoices: [TextChoice] = [
-	[.size17, .regularWeight, .dark],
-	[.size17, .regularWeight, .light],
-	[.size17, .boldWeight, .dark],
-	[.size17, .boldWeight, .light],
-	[.size24, .regularWeight, .dark],
-	[.size24, .regularWeight, .light]
+	[.sizeNormal, .regularWeight, .dark],
+	[.sizeNormal, .regularWeight, .light],
+	[.sizeNormal, .boldWeight, .dark],
+	[.sizeNormal, .boldWeight, .light],
+	[.sizeLarge, .regularWeight, .dark],
+	[.sizeLarge, .regularWeight, .light]
 ]
 
 enum TextExamplesContext {
@@ -190,8 +190,8 @@ enum TextExamplesContext {
 	}
 	
 	private static var smallCapsFont: UIFont {
-		let systemFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-		let smallCapsDesc = systemFont.fontDescriptor.addingAttributes([
+		let baseFont = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize)
+		let smallCapsDesc = baseFont.fontDescriptor.addingAttributes([
 			.featureSettings: [
 				[
 					kCTFontFeatureTypeIdentifierKey: kUpperCaseType,
@@ -203,7 +203,7 @@ enum TextExamplesContext {
 				]
 			]
 			])
-		return UIFont(descriptor: smallCapsDesc, size: UIFont.systemFontSize)
+		return UIFont(descriptor: smallCapsDesc, size: baseFont.pointSize)
 	}
 	
 	private static func contrastRatios(model: Model) -> [Element<Msg>] {
