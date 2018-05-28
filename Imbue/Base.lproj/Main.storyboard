@@ -70,7 +70,7 @@
                                 <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="0.0" right="8"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yhs-u1-Ymd">
-                                <rect key="frame" x="177" y="573" width="38" height="30"/>
+                                <rect key="frame" x="172" y="573" width="38" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="Copy"/>
                                 <connections>
@@ -109,16 +109,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="#FFFFFF" borderStyle="roundedRect" placeholder="000000" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dYH-i8-WBT">
-                                <rect key="frame" x="279" y="573" width="80" height="30"/>
+                                <rect key="frame" x="274" y="573" width="85" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="9QG-fi-oaa"/>
+                                    <constraint firstAttribute="width" constant="85" id="9QG-fi-oaa"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kZJ-6G-4sE">
-                                <rect key="frame" x="227" y="573" width="40" height="30"/>
+                                <rect key="frame" x="222" y="573" width="40" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="Paste"/>
                                 <connections>
@@ -267,7 +267,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Sx-r6-27U">
-                                <rect key="frame" x="177" y="573" width="38" height="30"/>
+                                <rect key="frame" x="172" y="573" width="38" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="Copy"/>
                                 <connections>
@@ -275,7 +275,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XKc-fM-cSb">
-                                <rect key="frame" x="227" y="573" width="40" height="30"/>
+                                <rect key="frame" x="222" y="573" width="40" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="Paste"/>
                                 <connections>
@@ -283,9 +283,9 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="#FFFFFF" borderStyle="roundedRect" placeholder="000000" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Rs-d2-aTD">
-                                <rect key="frame" x="279" y="573" width="80" height="30"/>
+                                <rect key="frame" x="274" y="573" width="85" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="cGc-qQ-snT"/>
+                                    <constraint firstAttribute="width" constant="85" id="cGc-qQ-snT"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
