@@ -103,9 +103,6 @@ private enum CellIdentifier : String {
 							.changeDesaturateAmount(CGFloat(slider.value))
 						}
 						]),
-					//					button("enabled", [
-//						.title("Enabled", for: .normal)
-//						])
 					])
 			]
 		}
@@ -162,6 +159,9 @@ class AdjustViewController: UITableViewController, ColorProvider {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		self.tableView.insetsContentViewsToSafeArea = false
+		self.tableView.contentInsetAdjustmentBehavior = .never
+		
 		self.tableAssistant = TableAssistant<Model, AdjustItem, AdjustMsg>(tableView: self.tableView, initial: Model(), update: update)
 		
 		self.themeUp()
@@ -180,6 +180,10 @@ class AdjustViewController: UITableViewController, ColorProvider {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		updateUI()
+	}
+	
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
 	}
 	
 	func updateUI() {
