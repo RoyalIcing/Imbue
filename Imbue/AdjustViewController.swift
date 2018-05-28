@@ -260,19 +260,19 @@ class AdjustViewController: UITableViewController, ColorProvider {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.tableView.insetsContentViewsToSafeArea = false
-		self.tableView.contentInsetAdjustmentBehavior = .never
-		
-		self.tableAssistant = TableAssistant<Model, AdjustItem, AdjustMsg>(tableView: self.tableView, initial: Model(), update: update)
-		
 		self.themeUp()
 		
+		let tableView = self.tableView!
 		tableView.allowsSelection = false
 		tableView.rowHeight = 88.0
 		tableView.separatorStyle = .none
+		tableView.insetsContentViewsToSafeArea = false
+		tableView.contentInsetAdjustmentBehavior = .never
+		
+		self.tableAssistant = TableAssistant<Model, AdjustItem, AdjustMsg>(tableView: tableView, initial: Model(), update: update)
 		
 		for cellIdentifier in CellIdentifier.all {
-			tableAssistant.registerCells(reuseIdentifier: cellIdentifier, render: cellIdentifier.render, layout: cellIdentifier.layout, tableView: self.tableView)
+			tableAssistant.registerCells(reuseIdentifier: cellIdentifier, render: cellIdentifier.render, layout: cellIdentifier.layout, tableView: tableView)
 		}
 		
 		// Update
