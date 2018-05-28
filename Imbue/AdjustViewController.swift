@@ -21,6 +21,7 @@ enum AdjustMsg {
 	case changeLightenAmount(CGFloat)
 	case changeDarkenAmount(CGFloat)
 	case changeDesaturateAmount(CGFloat)
+	case copyOutputHexString(String)
 }
 
 fileprivate struct Model {
@@ -58,62 +59,50 @@ private struct AdjustItem {
 	var cellIdentifier: CellIdentifier
 }
 
-private enum Section : Int {
-	case input
-	case adjustments
-	
-	static let all: [Section] = [.input, .adjustments]
-	
-	var count: Int {
-		switch self {
-		case .input:
-			return 1
-		case .adjustments:
-			return 3
-		}
-	}
-	
-	subscript(_ index: Int) -> CellIdentifier {
-		switch self {
-		case .input:
-			switch index {
-			case 0:
-				return .inputColor
-			default:
-				fatalError("Unknown index \(index) in section \(self)")
-			}
-		case .adjustments:
-			switch index {
-			case 0:
-				return .lighten
-			case 1:
-				return .darken
-			case 2:
-				return .desaturate
-			default:
-				fatalError("Unknown index \(index) in section \(self)")
-			}
-		}
-	}
-}
-
 private enum CellIdentifier : String {
 	case inputColor
 	case lighten
 	case darken
 	case desaturate
+	case outputColor
 	
 	static let all: [CellIdentifier] = [
 		.inputColor,
 		.lighten,
 		.darken,
-		.desaturate
+		.desaturate,
+		.outputColor
+	]
+}
+
+private enum Section : Int {
+	case input
+	case adjustments
+	case output
+	
+	static let all: [Section] = [.input, .adjustments, .output]
+	
+	private static let cellIdentifiersTable: [Section: [CellIdentifier]] = [
+		.input: [.inputColor],
+		.adjustments: [.lighten, .darken, .desaturate],
+		.output: [.outputColor]
 	]
 	
+	var count: Int {
+		return Section.cellIdentifiersTable[self]!.count
+	}
+	
+	subscript(_ index: Int) -> CellIdentifier {
+		return Section.cellIdentifiersTable[self]![index]
+	}
+}
+
+extension CellIdentifier {
 	enum ElementKey : String {
 		case label
 		case amount
 		case colorPreview
+		case copyButton
 	}
 	
 	func render(item: AdjustItem) -> [CellProp<AdjustMsg>] {
@@ -121,6 +110,23 @@ private enum CellIdentifier : String {
 		case .inputColor:
 			return [
 				.backgroundColor(UIColor(cgColor: item.inputColorValue.cgColor!)),
+			]
+		case .outputColor:
+			let outputColor = item.model.transform(color: item.inputColorValue, upTo: .desaturate)
+			let hexString = outputColor.toSRGB()!.hexString
+			return [
+				.backgroundColor(UIColor(cgColor: UI.backgroundColor)),
+				.content([
+					label(ElementKey.label, [
+						.text(hexString),
+						.set(\.textColor, to: UIColor.white),
+						]),
+					button(ElementKey.copyButton, [
+						.title("Copy Hex", for: .normal),
+						.set(\.font, to: UIFont.boldSystemFont(ofSize: UIFont.buttonFontSize)),
+						.onPress { .copyOutputHexString(hexString) }
+						])
+				])
 			]
 		case .lighten:
 			let outputColor = item.model.transform(color: item.inputColorValue, upTo: .lighten)
@@ -205,6 +211,17 @@ private enum CellIdentifier : String {
 				colorPreview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 				colorPreview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			]
+		case .outputColor:
+			let label = context.view(ElementKey.label)!
+			let copyButton = context.view(ElementKey.copyButton)!
+			return [
+				label.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
+				label.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.5),
+				label.centerYAnchor.constraint(equalTo: copyButton.centerYAnchor),
+				copyButton.leadingAnchor.constraintGreaterThanOrEqualToSystemSpacingAfter(label.trailingAnchor, multiplier: 1.0),
+				copyButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
+				copyButton.topAnchor.constraint(equalTo: margins.topAnchor),
+			]
 		default:
 			return []
 		}
@@ -221,6 +238,9 @@ private func update(message: AdjustMsg, model: inout Model) {
 		model.darkenAmount = amount
 	case let .changeDesaturateAmount(amount):
 		model.desaturateAmount = amount
+	case let .copyOutputHexString(hexString):
+		let rgb = ColorValue.RGB(hexString: hexString)!
+		ColorValue.sRGB(rgb).copy(to: UIPasteboard.general)
 	}
 }
 
