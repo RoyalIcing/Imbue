@@ -18,6 +18,7 @@ class LabPickerViewController: UIViewController, ColorProvider {
 	@IBOutlet var aHexField: UITextField!
 	@IBOutlet var bHexField: UITextField!
 	@IBOutlet var labels: [UILabel]!
+	@IBOutlet var rgbHexField: UITextField!
 	@IBOutlet var colorImageView: UIImageView!
 	@IBOutlet var sRGBImageView: UIImageView!
 	@IBOutlet var bottomLayoutConstraint: NSLayoutConstraint!
@@ -147,8 +148,6 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		sRGBImageView.layer.backgroundColor = cgColor.toSRGB()
 		CATransaction.commit()
 		
-		print("srgb", cgColor.toSRGB()!)
-		
 		lSlider.value = Float(lab.l)
 		aSlider.value = Float(lab.a)
 		bSlider.value = Float(lab.b)
@@ -156,6 +155,8 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		lHexField.text = "\(Int(lab.l))"
 		aHexField.text = "\(Int(lab.a))"
 		bHexField.text = "\(Int(lab.b))"
+		
+		rgbHexField.text = srgb.hexString
 		
 		textExamples.backgroundSRGB = self.srgb
 	}
