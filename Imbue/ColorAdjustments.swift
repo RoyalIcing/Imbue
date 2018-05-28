@@ -10,7 +10,10 @@ import UIKit
 
 
 extension ColorValue.RGB {
-	func blended(with otherColor: ColorValue.RGB, amount: CGFloat) -> ColorValue.RGB {
+	private static var black = ColorValue.RGB(r: 0.0, g: 0.0, b: 0.0)
+	private static var white = ColorValue.RGB(r: 1.0, g: 1.0, b: 1.0)
+	
+	private func alphaBlended(with otherColor: ColorValue.RGB, amount: CGFloat) -> ColorValue.RGB {
 		let r = otherColor.r * amount + self.r * (1.0 - amount)
 		let g = otherColor.g * amount + self.g * (1.0 - amount)
 		let b = otherColor.b * amount + self.b * (1.0 - amount)
@@ -23,6 +26,14 @@ extension ColorValue.RGB {
 	}
 	
 	func desaturated(amount: CGFloat) -> ColorValue.RGB {
-		return self.blended(with: self.desaturated(), amount: amount)
+		return self.alphaBlended(with: self.desaturated(), amount: amount)
+	}
+	
+	func lightened(amount: CGFloat) -> ColorValue.RGB {
+		return self.alphaBlended(with: ColorValue.RGB.white, amount: amount)
+	}
+	
+	func darkened(amount: CGFloat) -> ColorValue.RGB {
+		return self.alphaBlended(with: ColorValue.RGB.black, amount: amount)
 	}
 }

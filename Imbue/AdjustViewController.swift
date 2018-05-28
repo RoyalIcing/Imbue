@@ -18,11 +18,38 @@ import UIKit
 import Shohin
 
 enum AdjustMsg {
+	case changeLightenAmount(CGFloat)
+	case changeDarkenAmount(CGFloat)
 	case changeDesaturateAmount(CGFloat)
 }
 
-private struct Model {
-	var desaturateAmount: CGFloat = 1.0
+fileprivate struct Model {
+	var lightenAmount: CGFloat = 0.0
+	var darkenAmount: CGFloat = 0.0
+	var desaturateAmount: CGFloat = 0.0
+	
+	fileprivate enum Step : Int {
+		case lighten = 0
+		case darken
+		case desaturate
+	}
+	
+	func transform(color: ColorValue, upTo: Step) -> ColorValue {
+		var rgb = color.toSRGB()!
+		for step in 0 ... upTo.rawValue {
+			switch step {
+			case Step.lighten.rawValue:
+				rgb = rgb.lightened(amount: self.lightenAmount)
+			case Step.darken.rawValue:
+				rgb = rgb.darkened(amount: self.darkenAmount)
+			case Step.desaturate.rawValue:
+				rgb = rgb.desaturated(amount: self.desaturateAmount)
+			default:
+				break
+			}
+		}
+		return ColorValue.sRGB(rgb)
+	}
 }
 
 private struct AdjustItem {
@@ -42,7 +69,7 @@ private enum Section : Int {
 		case .input:
 			return 1
 		case .adjustments:
-			return 1
+			return 3
 		}
 	}
 	
@@ -58,6 +85,10 @@ private enum Section : Int {
 		case .adjustments:
 			switch index {
 			case 0:
+				return .lighten
+			case 1:
+				return .darken
+			case 2:
 				return .desaturate
 			default:
 				fatalError("Unknown index \(index) in section \(self)")
@@ -68,9 +99,16 @@ private enum Section : Int {
 
 private enum CellIdentifier : String {
 	case inputColor
+	case lighten
+	case darken
 	case desaturate
 	
-	static let all: [CellIdentifier] = [.inputColor, .desaturate]
+	static let all: [CellIdentifier] = [
+		.inputColor,
+		.lighten,
+		.darken,
+		.desaturate
+	]
 	
 	enum ElementKey : String {
 		case label
@@ -84,9 +122,48 @@ private enum CellIdentifier : String {
 			return [
 				.backgroundColor(UIColor(cgColor: item.inputColorValue.cgColor!)),
 			]
+		case .lighten:
+			let outputColor = item.model.transform(color: item.inputColorValue, upTo: .lighten)
+			return [
+				.backgroundColor(UIColor(cgColor: UI.backgroundColor)),
+				.content([
+					customView(ElementKey.colorPreview, UIView.self, [
+						.backgroundColor(outputColor.cgColor!)
+						]),
+					label(ElementKey.label, [
+						.text("Lighten"),
+						.set(\.textColor, to: UIColor.white),
+						]),
+					slider(ElementKey.amount, [
+						.value(Float(item.model.lightenAmount)),
+						.on(.valueChanged) { slider, event in
+							.changeLightenAmount(CGFloat(slider.value))
+						}
+						]),
+					])
+			]
+		case .darken:
+			let outputColor = item.model.transform(color: item.inputColorValue, upTo: .darken)
+			return [
+				.backgroundColor(UIColor(cgColor: UI.backgroundColor)),
+				.content([
+					customView(ElementKey.colorPreview, UIView.self, [
+						.backgroundColor(outputColor.cgColor!)
+						]),
+					label(ElementKey.label, [
+						.text("Darken"),
+						.set(\.textColor, to: UIColor.white),
+						]),
+					slider(ElementKey.amount, [
+						.value(Float(item.model.darkenAmount)),
+						.on(.valueChanged) { slider, event in
+							.changeDarkenAmount(CGFloat(slider.value))
+						}
+						]),
+					])
+			]
 		case .desaturate:
-			let outputColorRGB = item.inputColorValue.toSRGB()!.desaturated(amount: item.model.desaturateAmount)
-			let outputColor = ColorValue.sRGB(outputColorRGB)
+			let outputColor = item.model.transform(color: item.inputColorValue, upTo: .desaturate)
 			return [
 				.backgroundColor(UIColor(cgColor: UI.backgroundColor)),
 				.content([
@@ -112,7 +189,7 @@ private enum CellIdentifier : String {
 		let margins = context.marginsGuide
 		let view = context.view
 		switch item.cellIdentifier {
-		case .desaturate:
+		case .lighten, .darken, .desaturate:
 			let colorPreview = context.view(ElementKey.colorPreview)!
 			let label = context.view(ElementKey.label)!
 			let amount = context.view(ElementKey.amount)!
@@ -138,6 +215,10 @@ private enum CellIdentifier : String {
 
 private func update(message: AdjustMsg, model: inout Model) {
 	switch message {
+	case let .changeLightenAmount(amount):
+		model.lightenAmount = amount
+	case let .changeDarkenAmount(amount):
+		model.darkenAmount = amount
 	case let .changeDesaturateAmount(amount):
 		model.desaturateAmount = amount
 	}
