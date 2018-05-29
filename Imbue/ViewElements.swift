@@ -60,7 +60,7 @@ struct TextChoice : OptionSet {
 		}
 	}
 	
-	var aaContrastRatio: CGFloat {
+	var aaMinimumContrastRatio: CGFloat {
 		if self.contains(.boldWeight) {
 			return 3
 		}
@@ -74,7 +74,7 @@ struct TextChoice : OptionSet {
 		}
 	}
 	
-	var aaaContrastRatio: CGFloat {
+	var aaaMinimumContrastRatio: CGFloat {
 		if self.contains(.boldWeight) {
 			return 4.5
 		}
@@ -212,10 +212,10 @@ enum TextExamplesContext {
 			let contrastRatio = calculateContrastRatio(lighter: lighter, darker: darker)
 			let text: String
 			let formatted = { "\((contrastRatio * 100.0).rounded() / 100.0)" }
-			if contrastRatio >= textChoice.aaaContrastRatio {
+			if contrastRatio >= textChoice.aaaMinimumContrastRatio {
 				text = "AAA \(formatted())"
 			}
-			else if contrastRatio >= textChoice.aaContrastRatio {
+			else if contrastRatio >= textChoice.aaMinimumContrastRatio {
 				text = "AA \(formatted())"
 			}
 			else {
