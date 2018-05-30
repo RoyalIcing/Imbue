@@ -22,6 +22,8 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 	@IBOutlet var colorImageView: UIImageView!
 	@IBOutlet var bottomLayoutConstraint: NSLayoutConstraint!
 	
+	private var textExamples: TextExamplesContext.Bud!
+	
 	private var observers = [Any]()
 	
 	var colorValue: ColorValue {
@@ -66,11 +68,30 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 			field.keyboardType = .asciiCapable
 			field.autocorrectionType = .no
 			//field.smartDashesType = .no
-			
-			field.addTarget(self, action: #selector(SRGBPickerViewController.hexFieldChanged), for: .editingDidEndOnExit)
+			field.addTarget(self, action: #selector(SRGBPickerViewController.valueFieldChanged), for: .editingDidEndOnExit)
 		}
 		
+		rgbHexField.returnKeyType = .done
+		rgbHexField.keyboardType = .numbersAndPunctuation
+		rgbHexField.autocorrectionType = .no
+		//field.smartDashesType = .no
+		rgbHexField.addTarget(self, action: #selector(SRGBPickerViewController.rgbHexFieldChanged), for: .editingDidEndOnExit)
+		
 		labels.forEach{ $0.themeUp() }
+		
+		textExamples = TextExamplesContext.make(
+			model: TextExamplesContext.Model(backgroundSRGB: self.srgb),
+			view: self.view,
+			guideForKey: { [weak self]
+				key in
+				switch key {
+				case "y":
+					return self?.colorImageView.layoutMarginsGuide
+				default:
+					return nil
+				}
+			}
+		)
 		
 		// Update
 		updateUI()
@@ -98,7 +119,7 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 		)
 	}
 	
-	var srgbFromHexFields: ColorValue.RGB {
+	var srgbFromValueFields: ColorValue.RGB {
 		return ColorValue.RGB(
 			r: CGFloat(hexString: rHexField.text ?? "") ?? 0,
 			g: CGFloat(hexString: gHexField.text ?? "") ?? 0,
@@ -106,12 +127,24 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 		)
 	}
 	
+	var srgbFromRGBHexField: ColorValue.RGB? {
+		return ColorValue.RGB(
+			hexString: rgbHexField.text ?? ""
+		)
+	}
+	
 	@objc func sliderChanged() {
 		self.srgb = srgbFromSliders
 	}
 	
-	@objc func hexFieldChanged() {
-		self.srgb = srgbFromHexFields
+	@objc func valueFieldChanged() {
+		self.srgb = srgbFromValueFields
+	}
+	
+	@objc func rgbHexFieldChanged() {
+		guard let srgb = srgbFromRGBHexField else { return }
+		self.srgb = srgb
+		updateUI()
 	}
 	
 	func updateUI() {
@@ -131,6 +164,8 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 		bHexField.text = srgb.b.hexString(minLength: 2)
 		
 		rgbHexField.text = srgb.hexString
+		
+		textExamples.backgroundSRGB = self.srgb
 	}
 	
 	@IBAction override func copy(_ sender: Any?) {

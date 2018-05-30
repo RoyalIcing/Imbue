@@ -18,9 +18,12 @@ class LabPickerViewController: UIViewController, ColorProvider {
 	@IBOutlet var aHexField: UITextField!
 	@IBOutlet var bHexField: UITextField!
 	@IBOutlet var labels: [UILabel]!
+	@IBOutlet var rgbHexField: UITextField!
 	@IBOutlet var colorImageView: UIImageView!
 	@IBOutlet var sRGBImageView: UIImageView!
 	@IBOutlet var bottomLayoutConstraint: NSLayoutConstraint!
+	
+	private var textExamples: TextExamplesContext.Bud!
 	
 	private var observers = [Any]()
 	
@@ -62,11 +65,28 @@ class LabPickerViewController: UIViewController, ColorProvider {
 			field.keyboardType = .numbersAndPunctuation
 			field.autocorrectionType = .no
 			//field.smartDashesType = .no
-			
-			field.addTarget(self, action: #selector(LabPickerViewController.hexFieldChanged), for: .editingDidEndOnExit)
+			field.addTarget(self, action: #selector(LabPickerViewController.valueFieldChanged), for: .editingDidEndOnExit)
 		}
 		
+		rgbHexField.returnKeyType = .done
+		rgbHexField.keyboardType = .numbersAndPunctuation
+		rgbHexField.autocorrectionType = .no
+		//field.smartDashesType = .no
+		rgbHexField.addTarget(self, action: #selector(LabPickerViewController.rgbHexFieldChanged), for: .editingDidEndOnExit)
+		
 		labels.forEach{ $0.themeUp() }
+		
+		textExamples = TextExamplesContext.make(
+			model: TextExamplesContext.Model(backgroundSRGB: self.srgb),
+			view: self.view,
+			guideForKey: { [weak self] key in
+				switch key {
+				case "y":
+					return self?.colorImageView.layoutMarginsGuide
+				default:
+					return nil
+				}
+		})
 		
 		// Update
 		updateUI()
@@ -97,7 +117,7 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		observers.removeAll()
 	}
 	
-	var colorValuesFromSliders: ColorValue.Lab {
+	var labFromSliders: ColorValue.Lab {
 		return ColorValue.Lab(
 			l: CGFloat(lSlider.value),
 			a: CGFloat(aSlider.value),
@@ -105,7 +125,7 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		)
 	}
 	
-	var colorValuesFromHexFields: ColorValue.Lab {
+	var labFromValueFields: ColorValue.Lab {
 		return ColorValue.Lab(
 			l: lHexField.text.flatMap(CGFloat.NativeType.init).map{ CGFloat($0) } ?? 0,
 			a: aHexField.text.flatMap(CGFloat.NativeType.init).map{ CGFloat($0) } ?? 0,
@@ -113,13 +133,25 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		)
 	}
 	
+	var srgbFromRGBHexField: ColorValue.RGB? {
+		return ColorValue.RGB(
+			hexString: rgbHexField.text ?? ""
+		)
+	}
+	
 	@objc func sliderChanged() {
-		labD50 = colorValuesFromSliders
+		self.labD50 = labFromSliders
 		updateUI()
 	}
 	
-	@objc func hexFieldChanged() {
-		labD50 = colorValuesFromHexFields
+	@objc func valueFieldChanged() {
+		self.labD50 = labFromValueFields
+		updateUI()
+	}
+	
+	@objc func rgbHexFieldChanged() {
+		guard let srgb = srgbFromRGBHexField else { return }
+		self.srgb = srgb
 		updateUI()
 	}
 	
@@ -132,8 +164,6 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		sRGBImageView.layer.backgroundColor = cgColor.toSRGB()
 		CATransaction.commit()
 		
-		print("srgb \(cgColor.toSRGB())")
-		
 		lSlider.value = Float(lab.l)
 		aSlider.value = Float(lab.a)
 		bSlider.value = Float(lab.b)
@@ -141,6 +171,10 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		lHexField.text = "\(Int(lab.l))"
 		aHexField.text = "\(Int(lab.a))"
 		bHexField.text = "\(Int(lab.b))"
+		
+		rgbHexField.text = srgb.hexString
+		
+		textExamples.backgroundSRGB = self.srgb
 	}
 	
 	@IBAction override func copy(_ sender: Any?) {

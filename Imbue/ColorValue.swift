@@ -98,6 +98,8 @@ public enum ColorValue : Equatable {
 	}
 }
 
+// MARK: Dictionary decoding
+
 extension ColorValue.Lab {
 	public init?(dictionary: [String: Any]) {
 		guard

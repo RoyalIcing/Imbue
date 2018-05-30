@@ -3,12 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		B22075671FA9DA2100EFC187 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22075661FA9DA2000EFC187 /* Main.swift */; };
 		B220756A1FA9DC2900EFC187 /* UserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22075681FA9DA6000EFC187 /* UserInterface.swift */; };
+		B2557E0C20B1A610005DFAE8 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = B2557E0B20B1A610005DFAE8 /* Cartfile */; };
+		B2557E1920B1ACAC005DFAE8 /* ViewElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2557E1820B1ACAC005DFAE8 /* ViewElements.swift */; };
+		B2557E1B20B1B0B0005DFAE8 /* Changes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2557E1A20B1B0B0005DFAE8 /* Changes.swift */; };
+		B2557E1D20B1B5F0005DFAE8 /* Shohin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2557E1C20B1B5EF005DFAE8 /* Shohin.framework */; };
+		B2557E1E20B1B5F0005DFAE8 /* Shohin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B2557E1C20B1B5EF005DFAE8 /* Shohin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B28A787F20BA82B50070E450 /* AdjustViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A787E20BA82B50070E450 /* AdjustViewController.swift */; };
+		B28A788320BACE910070E450 /* ColorAdjustments.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A788220BACE910070E450 /* ColorAdjustments.swift */; };
+		B292C03020B4508100115E61 /* WCAG.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292C02F20B4508000115E61 /* WCAG.swift */; };
 		B2C19A421FA98EAA000AB250 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C19A411FA98EAA000AB250 /* CoreGraphics.swift */; };
 		B2C19A441FA98FE8000AB250 /* ColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C19A431FA98FE8000AB250 /* ColorProvider.swift */; };
 		B2C19A461FA9906E000AB250 /* ColorValue+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C19A451FA9906E000AB250 /* ColorValue+UIKit.swift */; };
@@ -43,9 +51,30 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B2557E1720B1A85D005DFAE8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B2557E1E20B1B5F0005DFAE8 /* Shohin.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		B22075661FA9DA2000EFC187 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		B22075681FA9DA6000EFC187 /* UserInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterface.swift; sourceTree = "<group>"; };
+		B2557E0B20B1A610005DFAE8 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		B2557E1820B1ACAC005DFAE8 /* ViewElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewElements.swift; sourceTree = "<group>"; };
+		B2557E1A20B1B0B0005DFAE8 /* Changes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Changes.swift; sourceTree = "<group>"; };
+		B2557E1C20B1B5EF005DFAE8 /* Shohin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Shohin.framework; path = Carthage/Build/iOS/Shohin.framework; sourceTree = "<group>"; };
+		B28A787E20BA82B50070E450 /* AdjustViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustViewController.swift; sourceTree = "<group>"; };
+		B28A788220BACE910070E450 /* ColorAdjustments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAdjustments.swift; sourceTree = "<group>"; };
+		B292C02F20B4508000115E61 /* WCAG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCAG.swift; sourceTree = "<group>"; };
 		B2C19A411FA98EAA000AB250 /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
 		B2C19A431FA98FE8000AB250 /* ColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorProvider.swift; sourceTree = "<group>"; };
 		B2C19A451FA9906E000AB250 /* ColorValue+UIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorValue+UIKit.swift"; sourceTree = "<group>"; };
@@ -74,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2557E1D20B1B5F0005DFAE8 /* Shohin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +127,8 @@
 		B2C834D61F0E305C002B8931 = {
 			isa = PBXGroup;
 			children = (
+				B2557E1C20B1B5EF005DFAE8 /* Shohin.framework */,
+				B2557E0B20B1A610005DFAE8 /* Cartfile */,
 				B2C834E11F0E305C002B8931 /* Imbue */,
 				B2C834F81F0E305C002B8931 /* ImbueTests */,
 				B2C835031F0E305C002B8931 /* ImbueUITests */,
@@ -149,6 +181,8 @@
 			isa = PBXGroup;
 			children = (
 				B22075681FA9DA6000EFC187 /* UserInterface.swift */,
+				B2557E1A20B1B0B0005DFAE8 /* Changes.swift */,
+				B2557E1820B1ACAC005DFAE8 /* ViewElements.swift */,
 				B2C834E81F0E305C002B8931 /* Main.storyboard */,
 				B22075661FA9DA2000EFC187 /* Main.swift */,
 				B2C481821F127DE100AAF9A1 /* ViewConvenience.swift */,
@@ -156,6 +190,7 @@
 				B2C19A451FA9906E000AB250 /* ColorValue+UIKit.swift */,
 				B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */,
 				B2C834E61F0E305C002B8931 /* SRGBPickerViewController.swift */,
+				B28A787E20BA82B50070E450 /* AdjustViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -166,6 +201,8 @@
 				B2C19A411FA98EAA000AB250 /* CoreGraphics.swift */,
 				B2C835121F0E31F2002B8931 /* Color.swift */,
 				B2C835181F0E703F002B8931 /* ColorValue.swift */,
+				B28A788220BACE910070E450 /* ColorAdjustments.swift */,
+				B292C02F20B4508000115E61 /* WCAG.swift */,
 				B2C835161F0E6DF9002B8931 /* Manager.swift */,
 			);
 			name = Model;
@@ -181,6 +218,7 @@
 				B2C834DB1F0E305C002B8931 /* Sources */,
 				B2C834DC1F0E305C002B8931 /* Frameworks */,
 				B2C834DD1F0E305C002B8931 /* Resources */,
+				B2557E1720B1A85D005DFAE8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -260,7 +298,7 @@
 				};
 			};
 			buildConfigurationList = B2C834DA1F0E305C002B8931 /* Build configuration list for PBXProject "Imbue" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -286,6 +324,7 @@
 			files = (
 				B2C834EF1F0E305C002B8931 /* LaunchScreen.storyboard in Resources */,
 				B2C834EC1F0E305C002B8931 /* Assets.xcassets in Resources */,
+				B2557E0C20B1A610005DFAE8 /* Cartfile in Resources */,
 				B2C834EA1F0E305C002B8931 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,16 +352,21 @@
 			files = (
 				B2C834E71F0E305C002B8931 /* SRGBPickerViewController.swift in Sources */,
 				B2C481831F127DE100AAF9A1 /* ViewConvenience.swift in Sources */,
+				B28A788320BACE910070E450 /* ColorAdjustments.swift in Sources */,
+				B2557E1920B1ACAC005DFAE8 /* ViewElements.swift in Sources */,
 				B22075671FA9DA2100EFC187 /* Main.swift in Sources */,
 				B2C835131F0E31F2002B8931 /* Color.swift in Sources */,
+				B2557E1B20B1B0B0005DFAE8 /* Changes.swift in Sources */,
 				B2C834E31F0E305C002B8931 /* AppDelegate.swift in Sources */,
 				B2C834E51F0E305C002B8931 /* LabPickerViewController.swift in Sources */,
+				B292C03020B4508100115E61 /* WCAG.swift in Sources */,
 				B2C19A461FA9906E000AB250 /* ColorValue+UIKit.swift in Sources */,
 				B2C835171F0E6DF9002B8931 /* Manager.swift in Sources */,
 				B2C19A441FA98FE8000AB250 /* ColorProvider.swift in Sources */,
 				B2C835191F0E703F002B8931 /* ColorValue.swift in Sources */,
 				B220756A1FA9DC2900EFC187 /* UserInterface.swift in Sources */,
 				B2C19A421FA98EAA000AB250 /* CoreGraphics.swift in Sources */,
+				B28A787F20BA82B50070E450 /* AdjustViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +475,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -482,7 +527,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -493,11 +539,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 5278SPSAPR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Imbue",
+				);
 				INFOPLIST_FILE = Imbue/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.burntcaramel.Imbue;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.royalicing.Imbue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -507,11 +562,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 5278SPSAPR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Imbue",
+				);
 				INFOPLIST_FILE = Imbue/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.burntcaramel.Imbue;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.royalicing.Imbue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -523,10 +587,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 5278SPSAPR;
 				INFOPLIST_FILE = ImbueTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.burntcaramel.ImbueTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Imbue.app/Imbue";
 			};
@@ -539,10 +607,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 5278SPSAPR;
 				INFOPLIST_FILE = ImbueTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.burntcaramel.ImbueTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Imbue.app/Imbue";
 			};
@@ -554,10 +626,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 5278SPSAPR;
 				INFOPLIST_FILE = ImbueUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.burntcaramel.ImbueUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Imbue;
 			};
@@ -569,10 +645,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 5278SPSAPR;
 				INFOPLIST_FILE = ImbueUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.burntcaramel.ImbueUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Imbue;
 			};
