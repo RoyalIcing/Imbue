@@ -272,7 +272,7 @@ class AdjustViewController: UITableViewController, ColorProvider {
 		self.tableAssistant = TableAssistant<Model, AdjustItem, AdjustMsg>(tableView: tableView, initial: Model(), update: update)
 		
 		for cellIdentifier in CellIdentifier.all {
-			tableAssistant.registerCells(reuseIdentifier: cellIdentifier, render: cellIdentifier.render, layout: cellIdentifier.layout, tableView: tableView)
+			tableAssistant.registerCells(reuseIdentifier: cellIdentifier, render: cellIdentifier.render, layout: cellIdentifier.layout)
 		}
 		
 		// Update
@@ -310,6 +310,6 @@ class AdjustViewController: UITableViewController, ColorProvider {
 		let section = Section(rawValue: indexPath.section)!
 		let cellIdentifier = section[indexPath.item]
 		let item = AdjustItem(model: tableAssistant.model, inputColorValue: colorValue, cellIdentifier: cellIdentifier)
-		return tableAssistant.cell(cellIdentifier, item, tableView: tableView)
+		return tableAssistant.cell(cellIdentifier, item)
 	}
 }
