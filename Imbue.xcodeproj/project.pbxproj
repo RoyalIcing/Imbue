@@ -56,6 +56,7 @@
 		B2557E1820B1ACAC005DFAE8 /* ViewElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewElements.swift; sourceTree = "<group>"; };
 		B2557E1A20B1B0B0005DFAE8 /* Changes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Changes.swift; sourceTree = "<group>"; };
 		B2557E1C20B1B5EF005DFAE8 /* Shohin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Shohin.framework; path = Carthage/Build/iOS/Shohin.framework; sourceTree = "<group>"; };
+		B26DA85C20C14BAA00C438A3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B28A787E20BA82B50070E450 /* AdjustViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustViewController.swift; sourceTree = "<group>"; };
 		B28A788220BACE910070E450 /* ColorAdjustments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAdjustments.swift; sourceTree = "<group>"; };
 		B292C02F20B4508000115E61 /* WCAG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCAG.swift; sourceTree = "<group>"; };
@@ -117,6 +118,7 @@
 		B2C834D61F0E305C002B8931 = {
 			isa = PBXGroup;
 			children = (
+				B26DA85C20C14BAA00C438A3 /* README.md */,
 				B2557E1C20B1B5EF005DFAE8 /* Shohin.framework */,
 				B2557E0B20B1A610005DFAE8 /* Cartfile */,
 				B2C834E11F0E305C002B8931 /* Imbue */,
