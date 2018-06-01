@@ -60,7 +60,7 @@ struct TextChoice : OptionSet {
 		}
 	}
 	
-	var aaContrastRatio: CGFloat {
+	var aaMinimumContrastRatio: CGFloat {
 		if self.contains(.boldWeight) {
 			return 3
 		}
@@ -74,7 +74,7 @@ struct TextChoice : OptionSet {
 		}
 	}
 	
-	var aaaContrastRatio: CGFloat {
+	var aaaMinimumContrastRatio: CGFloat {
 		if self.contains(.boldWeight) {
 			return 4.5
 		}
@@ -142,7 +142,7 @@ enum TextExamplesContext {
 		return "\(textChoice) contrastRatio"
 	}
 	
-	private static func render(model: Model) -> [Element<Msg>] {
+	private static func render(model: Model) -> [ViewElement<Msg>] {
 		return [
 			textExamples,
 			contrastRatios(model: model)
@@ -154,23 +154,30 @@ enum TextExamplesContext {
 		let yGuide = context.guide("y")
 		var constraints = [NSLayoutConstraint]()
 		
+		// Center first label
 		let first = context.view(textChoices.first!)!
-		let mid = context.view(textChoices[(textChoices.count - 1) / 2])!
+		let mid = context.view(textChoices[(textChoices.count + 1) / 2])!
 		constraints.append(contentsOf: [
 			first.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
 			mid.centerYAnchor.constraint(equalTo: yGuide?.centerYAnchor ?? margins.centerYAnchor)
 		])
 		
+		// Stack each label on top of each other
 		for (topChoice, bottomChoice) in zip(textChoices, textChoices[1...]) {
 			let topView = context.view(topChoice)!
 			let bottomView = context.view(bottomChoice)!
 			
+			let stackConstraint = bottomView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 8.0)
+			//stackConstraint.priority = .defaultLow
+			
 			constraints.append(contentsOf: [
-				bottomView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 8.0),
-				bottomView.centerXAnchor.constraint(equalTo: margins.centerXAnchor)
+				stackConstraint,
+				bottomView.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
+				//bottomView.bottomAnchor.constraint(lessThanOrEqualTo: margins.bottomAnchor)
 			])
 		}
 		
+		// Add accessibility contrast ratio scores
 		for textChoice in textChoices {
 			let contrastRatioKey = keyForContrastRatio(textChoice: textChoice)
 			if let contrastRatioLabel = context.view(contrastRatioKey) {
@@ -185,7 +192,7 @@ enum TextExamplesContext {
 		return constraints
 	}
 	
-	private static let textExamples: [Element<Msg>] = textChoices.map { textChoice in
+	private static let textExamples: [ViewElement<Msg>] = textChoices.map { textChoice in
 		label(textChoice, textChoice.labelProps())
 	}
 	
@@ -206,16 +213,16 @@ enum TextExamplesContext {
 		return UIFont(descriptor: smallCapsDesc, size: baseFont.pointSize)
 	}
 	
-	private static func contrastRatios(model: Model) -> [Element<Msg>] {
+	private static func contrastRatios(model: Model) -> [ViewElement<Msg>] {
 		return textChoices.map { textChoice in
 			let (lighter, darker) = getLighterAndDarker(model.backgroundSRGB.wcagLuminance, textChoice.wcagLuminance)
 			let contrastRatio = calculateContrastRatio(lighter: lighter, darker: darker)
 			let text: String
 			let formatted = { "\((contrastRatio * 100.0).rounded() / 100.0)" }
-			if contrastRatio >= textChoice.aaaContrastRatio {
+			if contrastRatio >= textChoice.aaaMinimumContrastRatio {
 				text = "AAA \(formatted())"
 			}
-			else if contrastRatio >= textChoice.aaContrastRatio {
+			else if contrastRatio >= textChoice.aaMinimumContrastRatio {
 				text = "AA \(formatted())"
 			}
 			else {
