@@ -12,8 +12,6 @@
 		B2557E0C20B1A610005DFAE8 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = B2557E0B20B1A610005DFAE8 /* Cartfile */; };
 		B2557E1920B1ACAC005DFAE8 /* ViewElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2557E1820B1ACAC005DFAE8 /* ViewElements.swift */; };
 		B2557E1B20B1B0B0005DFAE8 /* Changes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2557E1A20B1B0B0005DFAE8 /* Changes.swift */; };
-		B2557E1D20B1B5F0005DFAE8 /* Shohin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2557E1C20B1B5EF005DFAE8 /* Shohin.framework */; };
-		B2557E1E20B1B5F0005DFAE8 /* Shohin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B2557E1C20B1B5EF005DFAE8 /* Shohin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B28A787F20BA82B50070E450 /* AdjustViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A787E20BA82B50070E450 /* AdjustViewController.swift */; };
 		B28A788320BACE910070E450 /* ColorAdjustments.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28A788220BACE910070E450 /* ColorAdjustments.swift */; };
 		B292C03020B4508100115E61 /* WCAG.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292C02F20B4508000115E61 /* WCAG.swift */; };
@@ -50,20 +48,6 @@
 			remoteInfo = Imbue;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		B2557E1720B1A85D005DFAE8 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				B2557E1E20B1B5F0005DFAE8 /* Shohin.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B22075661FA9DA2000EFC187 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
@@ -103,7 +87,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2557E1D20B1B5F0005DFAE8 /* Shohin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +107,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B270BFEB20BD8A0900407573 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B2C834D61F0E305C002B8931 = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +123,7 @@
 				B2C834F81F0E305C002B8931 /* ImbueTests */,
 				B2C835031F0E305C002B8931 /* ImbueUITests */,
 				B2C834E01F0E305C002B8931 /* Products */,
+				B270BFEB20BD8A0900407573 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -218,7 +209,7 @@
 				B2C834DB1F0E305C002B8931 /* Sources */,
 				B2C834DC1F0E305C002B8931 /* Frameworks */,
 				B2C834DD1F0E305C002B8931 /* Resources */,
-				B2557E1720B1A85D005DFAE8 /* Embed Frameworks */,
+				B270BFEA20BD898F00407573 /* Carthage strip frameworks to ARM-only */,
 			);
 			buildRules = (
 			);
@@ -344,6 +335,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B270BFEA20BD898F00407573 /* Carthage strip frameworks to ARM-only */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Shohin.framework",
+			);
+			name = "Carthage strip frameworks to ARM-only";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B2C834DB1F0E305C002B8931 /* Sources */ = {
