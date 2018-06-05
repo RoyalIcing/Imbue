@@ -21,6 +21,7 @@ enum AdjustMsg {
 	case changeLightenAmount(CGFloat)
 	case changeDarkenAmount(CGFloat)
 	case changeDesaturateAmount(CGFloat)
+    case changeInverted(Bool)
 	case copyOutputHexString(String)
 }
 
@@ -28,11 +29,13 @@ fileprivate struct Model {
 	var lightenAmount: CGFloat = 0.0
 	var darkenAmount: CGFloat = 0.0
 	var desaturateAmount: CGFloat = 0.0
+    var invert: Bool = false
 	
 	fileprivate enum Step : Int {
 		case lighten = 0
 		case darken
 		case desaturate
+        case invert
 	}
 	
 	func transform(color: ColorValue, upTo: Step) -> ColorValue {
@@ -45,6 +48,10 @@ fileprivate struct Model {
 				rgb = rgb.darkened(amount: self.darkenAmount)
 			case Step.desaturate.rawValue:
 				rgb = rgb.desaturated(amount: self.desaturateAmount)
+            case Step.invert.rawValue:
+                if self.invert {
+                    rgb = rgb.inverted()
+                }
 			default:
 				break
 			}
@@ -61,9 +68,7 @@ private struct AdjustItem {
 
 private enum CellIdentifier : String {
 	case inputColor
-	case lighten
-	case darken
-	case desaturate
+	case lighten, darken, desaturate, invert
 	case outputColor
 	
 	static let all: [CellIdentifier] = [
@@ -71,6 +76,7 @@ private enum CellIdentifier : String {
 		.lighten,
 		.darken,
 		.desaturate,
+        .invert,
 		.outputColor
 	]
 }
@@ -84,7 +90,7 @@ private enum Section : Int {
 	
 	private static let cellIdentifiersTable: [Section: [CellIdentifier]] = [
 		.input: [.inputColor],
-		.adjustments: [.lighten, .darken, .desaturate],
+		.adjustments: [.lighten, .darken, .desaturate, .invert],
 		.output: [.outputColor]
 	]
 	
@@ -101,6 +107,7 @@ extension CellIdentifier {
 	enum ElementKey : String {
 		case label
 		case amount
+        case toggle
 		case colorPreview
 		case copyButton
 	}
@@ -187,6 +194,26 @@ extension CellIdentifier {
 						}
 						]),
 					])
+            ]
+        case .invert:
+            let outputColor = item.model.transform(color: item.inputColorValue, upTo: .invert)
+            return [
+                .backgroundColor(UIColor(cgColor: UI.backgroundColor)),
+                .content([
+                    customView(ElementKey.colorPreview, UIView.self, [
+                        .backgroundColor(outputColor.cgColor!)
+                        ]),
+                    label(ElementKey.label, [
+                        .text("Invert"),
+                        .set(\.textColor, to: UIColor.white),
+                        ]),
+                    `switch`(ElementKey.toggle, [
+                        .isOn(item.model.invert, animated: true),
+                        .on(.valueChanged) { `switch`, event in
+                            .changeInverted(`switch`.isOn)
+                        }
+                        ]),
+                    ])
 			]
 		}
 	}
@@ -211,6 +238,22 @@ extension CellIdentifier {
 				colorPreview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 				colorPreview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			]
+        case .invert:
+            let colorPreview = context.view(ElementKey.colorPreview)!
+            let label = context.view(ElementKey.label)!
+            let toggle = context.view(ElementKey.toggle)!
+            return [
+                label.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
+                label.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.5),
+                label.centerYAnchor.constraint(equalTo: toggle.centerYAnchor),
+                toggle.leadingAnchor.constraint(equalTo: label.trailingAnchor),
+                toggle.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
+                toggle.topAnchor.constraint(equalTo: margins.topAnchor),
+                colorPreview.topAnchor.constraint(equalTo: margins.centerYAnchor),
+                colorPreview.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                colorPreview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                colorPreview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            ]
 		case .outputColor:
 			let label = context.view(ElementKey.label)!
 			let copyButton = context.view(ElementKey.copyButton)!
@@ -238,6 +281,8 @@ private func update(message: AdjustMsg, model: inout Model) {
 		model.darkenAmount = amount
 	case let .changeDesaturateAmount(amount):
 		model.desaturateAmount = amount
+    case let .changeInverted(invert):
+        model.invert = invert
 	case let .copyOutputHexString(hexString):
 		let rgb = ColorValue.RGB(hexString: hexString)!
 		ColorValue.sRGB(rgb).copy(to: UIPasteboard.general)
@@ -269,10 +314,10 @@ class AdjustViewController: UITableViewController, ColorProvider {
 		tableView.insetsContentViewsToSafeArea = false
 		tableView.contentInsetAdjustmentBehavior = .never
 		
-		self.tableAssistant = TableAssistant<Model, AdjustItem, AdjustMsg>(tableView: tableView, initial: Model(), update: update)
+		self.tableAssistant = TableAssistant<Model, AdjustItem, AdjustMsg>(tableView: tableView, cellForRowAt: self.cellForRowAt, initial: Model(), update: update)
 		
 		for cellIdentifier in CellIdentifier.all {
-			tableAssistant.registerCells(reuseIdentifier: cellIdentifier, render: cellIdentifier.render, layout: cellIdentifier.layout)
+            tableAssistant.registerCells(reuseIdentifier: cellIdentifier, render: cellIdentifier.render, layout: cellIdentifier.layout)
 		}
 		
 		// Update
@@ -291,6 +336,13 @@ class AdjustViewController: UITableViewController, ColorProvider {
 		tableView.reloadData()
 	}
 	
+    fileprivate func cellForRowAt(_ indexPath: IndexPath) -> (reusableIdentifier: String, model: AdjustItem) {
+        let section = Section(rawValue: indexPath.section)!
+        let reuseIdentifier = section[indexPath.item]
+        let model = AdjustItem(model: tableAssistant.model, inputColorValue: colorValue, cellIdentifier: reuseIdentifier)
+        return (String(describing: reuseIdentifier), model)
+    }
+    
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
@@ -307,9 +359,10 @@ class AdjustViewController: UITableViewController, ColorProvider {
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let section = Section(rawValue: indexPath.section)!
-		let cellIdentifier = section[indexPath.item]
-		let item = AdjustItem(model: tableAssistant.model, inputColorValue: colorValue, cellIdentifier: cellIdentifier)
-		return tableAssistant.cell(cellIdentifier, item)
+//        let section = Section(rawValue: indexPath.section)!
+//        let cellIdentifier = section[indexPath.item]
+//        let item = AdjustItem(model: tableAssistant.model, inputColorValue: colorValue, cellIdentifier: cellIdentifier)
+//        return tableAssistant.cell(cellIdentifier, item)
+        return tableAssistant.cell(forRowAt: indexPath)
 	}
 }

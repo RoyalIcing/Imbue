@@ -36,4 +36,11 @@ extension ColorValue.RGB {
 	func darkened(amount: CGFloat) -> ColorValue.RGB {
 		return self.alphaBlended(with: ColorValue.RGB.black, amount: amount)
 	}
+    
+    func inverted() -> ColorValue.RGB {
+        let r = 1.0 - self.r
+        let g = 1.0 - self.g
+        let b = 1.0 - self.b
+        return ColorValue.RGB(r: r, g: g, b: b)
+    }
 }
