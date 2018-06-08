@@ -60,7 +60,7 @@ fileprivate struct Model {
 	}
 }
 
-private struct AdjustItem {
+private struct ItemModel {
 	var model: Model
 	var inputColorValue: ColorValue
 	var cellIdentifier: CellIdentifier
@@ -112,7 +112,7 @@ extension CellIdentifier {
 		case copyButton
 	}
 	
-	func render(item: AdjustItem) -> [CellProp<AdjustMsg>] {
+	func render(item: ItemModel) -> [CellProp<AdjustMsg>] {
 		switch self {
 		case .inputColor:
 			return [
@@ -218,7 +218,7 @@ extension CellIdentifier {
 		}
 	}
 	
-	func layout(item: AdjustItem, context: LayoutContext) -> [NSLayoutConstraint] {
+	func layout(item: ItemModel, context: LayoutContext) -> [NSLayoutConstraint] {
 		let margins = context.marginsGuide
 		let view = context.view
 		switch item.cellIdentifier {
@@ -290,7 +290,7 @@ private func update(message: AdjustMsg, model: inout Model) {
 }
 
 class AdjustViewController: UITableViewController, ColorProvider {
-	private var tableAssistant: TableAssistant<Model, AdjustItem, AdjustMsg>!
+	private var tableAssistant: TableAssistant<Model, ItemModel, AdjustMsg>!
 	
 	var colorValue: ColorValue {
 		get {
@@ -314,7 +314,7 @@ class AdjustViewController: UITableViewController, ColorProvider {
 		tableView.insetsContentViewsToSafeArea = false
 		tableView.contentInsetAdjustmentBehavior = .never
 		
-		self.tableAssistant = TableAssistant<Model, AdjustItem, AdjustMsg>(tableView: tableView, cellForRowAt: self.cellForRowAt, initial: Model(), update: update)
+		self.tableAssistant = TableAssistant<Model, ItemModel, AdjustMsg>(tableView: tableView, cellForRowAt: self.cellForRowAt, initial: Model(), update: update)
 		
 		for cellIdentifier in CellIdentifier.all {
             tableAssistant.registerCells(reuseIdentifier: cellIdentifier, render: cellIdentifier.render, layout: cellIdentifier.layout)
@@ -336,10 +336,10 @@ class AdjustViewController: UITableViewController, ColorProvider {
 		tableView.reloadData()
 	}
 	
-    fileprivate func cellForRowAt(_ indexPath: IndexPath) -> (reusableIdentifier: String, model: AdjustItem) {
+    fileprivate func cellForRowAt(_ indexPath: IndexPath) -> (reusableIdentifier: String, model: ItemModel) {
         let section = Section(rawValue: indexPath.section)!
         let reuseIdentifier = section[indexPath.item]
-        let model = AdjustItem(model: tableAssistant.model, inputColorValue: colorValue, cellIdentifier: reuseIdentifier)
+        let model = ItemModel(model: tableAssistant.model, inputColorValue: colorValue, cellIdentifier: reuseIdentifier)
         return (String(describing: reuseIdentifier), model)
     }
     
