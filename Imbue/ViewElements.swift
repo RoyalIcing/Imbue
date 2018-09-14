@@ -110,9 +110,11 @@ enum TextExamplesContext {
 	
 	class Bud {
 		let program: Program<Model, Msg>
+		let buttonProgram: LayerProgram<Model, Msg, Store<Model, Msg>>
 		
-		fileprivate init(program: Program<Model, Msg>) {
+		fileprivate init(program: Program<Model, Msg>, buttonProgram: LayerProgram<Model, Msg, Store<Model, Msg>>) {
 			self.program = program
+			self.buttonProgram = buttonProgram
 		}
 		
 		var backgroundSRGB: ColorValue.RGB {
@@ -126,8 +128,19 @@ enum TextExamplesContext {
 	}
 	
 	static func make(model: Model, view: UIView, guideForKey: @escaping (String) -> UILayoutGuide? = { _ in nil }) -> Bud {
-		let program = Program(view: view, model: model, update: update, render: render, layoutGuideForKey: guideForKey, layout: layout)
-		return Bud(program: program)
+		let store = Store(
+			initial: (model, []),
+			update: update
+		)
+		
+		let program = Program(view: view, store: store, render: render, layoutGuideForKey: guideForKey, layout: layout)
+		
+		let layer = CALayer()
+		view.layer.addSublayer(layer)
+		
+		let buttonLayerEnvironment = LayerProgram(layer: layer, store: store, render: renderButtonLayers)
+		
+		return Bud(program: program, buttonProgram: buttonLayerEnvironment)
 	}
 	
 	private static func update(message: Msg, model: inout Model) -> Command<Msg> {
@@ -142,11 +155,31 @@ enum TextExamplesContext {
 		return "\(textChoice) contrastRatio"
 	}
 	
+	static var keyForButtonLayers: String {
+		return "button layers"
+	}
+	
 	private static func render(model: Model) -> [ViewElement<Msg>] {
 		return [
 			textExamples,
-			contrastRatios(model: model)
+			contrastRatios(model: model),
+			[
+				.layers(
+					self.keyForButtonLayers,
+					[
+						.custom("button", CALayer.self, [
+							.set(\.backgroundColor, to: UIColor.red.cgColor)
+							])
+					]
+				)
+			]
 			].flatMap { $0 }
+	}
+	
+	private static func renderButtonLayers(model: Model) -> [LayerElement<Msg>] {
+		return [
+			
+		]
 	}
 	
 	private static func layout(model: Model, context: LayoutContext) -> [NSLayoutConstraint] {
@@ -188,6 +221,16 @@ enum TextExamplesContext {
 					])
 			}
 		}
+		
+		let lastView = context.view(textChoices.last!)!
+		let buttonView = context.view(self.keyForButtonLayers)!
+		constraints.append(contentsOf: [
+//			buttonView.topAnchor.constraint(equalTo: lastView.bottomAnchor, constant: 8.0),
+			buttonView.centerYAnchor.constraint(equalTo: margins.centerYAnchor),
+			buttonView.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
+			buttonView.widthAnchor.constraint(equalToConstant: 200.0),
+			buttonView.heightAnchor.constraint(equalToConstant: 20.0)
+			])
 		
 		return constraints
 	}

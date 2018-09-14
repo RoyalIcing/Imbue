@@ -48,10 +48,10 @@ fileprivate struct Model {
 				rgb = rgb.darkened(amount: self.darkenAmount)
 			case Step.desaturate.rawValue:
 				rgb = rgb.desaturated(amount: self.desaturateAmount)
-            case Step.invert.rawValue:
-                if self.invert {
-                    rgb = rgb.inverted()
-                }
+			case Step.invert.rawValue:
+				if self.invert {
+					rgb = rgb.inverted()
+				}
 			default:
 				break
 			}
