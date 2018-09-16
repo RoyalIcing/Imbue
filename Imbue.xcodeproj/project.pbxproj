@@ -271,20 +271,20 @@
 					B2C834DE1F0E305C002B8931 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 5278SPSAPR;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					B2C834F41F0E305C002B8931 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 5278SPSAPR;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 						TestTargetID = B2C834DE1F0E305C002B8931;
 					};
 					B2C834FF1F0E305C002B8931 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 5278SPSAPR;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 						TestTargetID = B2C834DE1F0E305C002B8931;
 					};
@@ -564,7 +564,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.royalicing.Imbue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -587,7 +587,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.royalicing.Imbue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -606,7 +606,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.burntcaramel.ImbueTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Imbue.app/Imbue";
 			};
 			name = Debug;
@@ -626,7 +626,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.burntcaramel.ImbueTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Imbue.app/Imbue";
 			};
 			name = Release;
@@ -645,7 +645,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.burntcaramel.ImbueUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_TARGET_NAME = Imbue;
 			};
 			name = Debug;
@@ -664,7 +664,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.burntcaramel.ImbueUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_TARGET_NAME = Imbue;
 			};
 			name = Release;

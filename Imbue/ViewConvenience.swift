@@ -19,10 +19,10 @@ extension UIView {
 	fileprivate func animateFor(keyboardNotification: Notification, useKeyboardEndFrame: (CGRect) -> ()) {
 		guard
 			let info = keyboardNotification.userInfo,
-			let keyboardFrame = info[UIKeyboardFrameEndUserInfoKey] as? CGRect,
-			let duration = info[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval,
-			let animationCurveInt = info[UIKeyboardAnimationCurveUserInfoKey] as? Int, //UIViewAnimationCurve
-			let animationCurve = UIViewAnimationCurve(rawValue: animationCurveInt)
+			let keyboardFrame = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+			let duration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval,
+			let animationCurveInt = info[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int, //UIViewAnimationCurve
+			let animationCurve = UIView.AnimationCurve(rawValue: animationCurveInt)
 			else { return }
 		
 		useKeyboardEndFrame(keyboardFrame)
@@ -60,7 +60,7 @@ enum ViewConvenience {
 	static func observeKeyboardNotifications(viewController: UIViewController, constraint: NSLayoutConstraint, valueWhenHidden: CGFloat) -> [Any] {
 		let nc = NotificationCenter.default
 		return [
-			nc.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil) { [weak viewController] note in
+			nc.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { [weak viewController] note in
 				guard let viewController = viewController else { return }
 				let view = viewController.view!
 				view.animateFor(keyboardNotification: note, useKeyboardEndFrame: { keyboardFrame in
@@ -75,7 +75,7 @@ enum ViewConvenience {
 					}
 				})
 			},
-			nc.addObserver(forName: .UIKeyboardWillHide, object: nil, queue: nil) { [weak viewController] note in
+			nc.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) { [weak viewController] note in
 				guard let viewController = viewController else { return }
 				let view = viewController.view!
 				

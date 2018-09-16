@@ -58,9 +58,9 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 		bSlider.minimumTrackTintColor = UIColor(red: 1, green: 1, blue: 0, alpha: 1)
 		bSlider.maximumTrackTintColor = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
 		
-		rSlider.addTarget(self, action: #selector(SRGBPickerViewController.sliderChanged), for: UIControlEvents.valueChanged)
-		gSlider.addTarget(self, action: #selector(SRGBPickerViewController.sliderChanged), for: UIControlEvents.valueChanged)
-		bSlider.addTarget(self, action: #selector(SRGBPickerViewController.sliderChanged), for: UIControlEvents.valueChanged)
+		rSlider.addTarget(self, action: #selector(SRGBPickerViewController.sliderChanged), for: UIControl.Event.valueChanged)
+		gSlider.addTarget(self, action: #selector(SRGBPickerViewController.sliderChanged), for: UIControl.Event.valueChanged)
+		bSlider.addTarget(self, action: #selector(SRGBPickerViewController.sliderChanged), for: UIControl.Event.valueChanged)
 		
 		// Hex fields
 		for field in [rHexField!, gHexField!, bHexField!] {

@@ -43,10 +43,10 @@ class Manager {
 	
 	private func observe() {
 		let nc = NotificationCenter.default
-		nc.addObserver(forName: .UIApplicationDidBecomeActive, object: nil, queue: nil) { [weak self] note in
+		nc.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] note in
 			self?.load()
 		}
-		nc.addObserver(forName: .UIApplicationDidEnterBackground, object: nil, queue: nil) { [weak self] note in
+		nc.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: nil) { [weak self] note in
 			self?.save()
 		}
 	}

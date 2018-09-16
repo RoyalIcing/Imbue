@@ -55,9 +55,9 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		bSlider.minimumTrackTintColor = CGColor.labD50(l: 50, a: 0, b: -128)?.toDisplayUIColor()
 		bSlider.maximumTrackTintColor = CGColor.labD50(l: 50, a: 0, b: 127)?.toDisplayUIColor()
 		
-		lSlider.addTarget(self, action: #selector(LabPickerViewController.sliderChanged), for: UIControlEvents.valueChanged)
-		aSlider.addTarget(self, action: #selector(LabPickerViewController.sliderChanged), for: UIControlEvents.valueChanged)
-		bSlider.addTarget(self, action: #selector(LabPickerViewController.sliderChanged), for: UIControlEvents.valueChanged)
+		lSlider.addTarget(self, action: #selector(LabPickerViewController.sliderChanged), for: UIControl.Event.valueChanged)
+		aSlider.addTarget(self, action: #selector(LabPickerViewController.sliderChanged), for: UIControl.Event.valueChanged)
+		bSlider.addTarget(self, action: #selector(LabPickerViewController.sliderChanged), for: UIControl.Event.valueChanged)
 		
 		// Hex fields
 		for field in [lHexField!, aHexField!, bHexField!] {
@@ -92,7 +92,7 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		updateUI()
 	}
 	
-	func animateForKeyboard(height: CGFloat, duration: TimeInterval, curve: UIViewAnimationCurve) {
+	func animateForKeyboard(height: CGFloat, duration: TimeInterval, curve: UIView.AnimationCurve) {
 		bottomLayoutConstraint.constant = height
 		view.setNeedsUpdateConstraints()
 		
