@@ -40,8 +40,16 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 		return ColorValue.RGB(r: 0.5, g: 0.5, b: 0.5)
 	}
 	
+	@objc func endEditing() {
+		self.view.endEditing(true)
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		self.view.addGestureRecognizer(
+			UITapGestureRecognizer(target: self, action: #selector(endEditing))
+		)
 		
 		self.themeUp()
 		
@@ -72,7 +80,7 @@ class SRGBPickerViewController: UIViewController, ColorProvider {
 		}
 		
 		rgbHexField.returnKeyType = .done
-		rgbHexField.keyboardType = .numbersAndPunctuation
+		rgbHexField.keyboardType = .asciiCapable
 		rgbHexField.autocorrectionType = .no
 		//field.smartDashesType = .no
 		rgbHexField.addTarget(self, action: #selector(SRGBPickerViewController.rgbHexFieldChanged), for: .editingDidEndOnExit)

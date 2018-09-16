@@ -37,13 +37,21 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		}
 	}
 	
+	@objc func endEditing() {
+		self.view.endEditing(true)
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		colorImageView.addStatusBarVisualEffectView(effect: UIBlurEffect(style: .regular))
-		sRGBImageView.addStatusBarVisualEffectView(effect: UIBlurEffect(style: .regular))
+		self.view.addGestureRecognizer(
+			UITapGestureRecognizer(target: self, action: #selector(endEditing))
+		)
 		
 		self.themeUp()
+		
+		colorImageView.addStatusBarVisualEffectView(effect: UIBlurEffect(style: .regular))
+		sRGBImageView.addStatusBarVisualEffectView(effect: UIBlurEffect(style: .regular))
 		
 		// Sliders
 		lSlider.minimumTrackTintColor = UIColor.darkGray
@@ -62,14 +70,14 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		// Hex fields
 		for field in [lHexField!, aHexField!, bHexField!] {
 			field.returnKeyType = .done
-			field.keyboardType = .numbersAndPunctuation
+			field.keyboardType = .decimalPad
 			field.autocorrectionType = .no
 			//field.smartDashesType = .no
 			field.addTarget(self, action: #selector(LabPickerViewController.valueFieldChanged), for: .editingDidEndOnExit)
 		}
 		
 		rgbHexField.returnKeyType = .done
-		rgbHexField.keyboardType = .numbersAndPunctuation
+		rgbHexField.keyboardType = .asciiCapable
 		rgbHexField.autocorrectionType = .no
 		//field.smartDashesType = .no
 		rgbHexField.addTarget(self, action: #selector(LabPickerViewController.rgbHexFieldChanged), for: .editingDidEndOnExit)
@@ -90,17 +98,6 @@ class LabPickerViewController: UIViewController, ColorProvider {
 		
 		// Update
 		updateUI()
-	}
-	
-	func animateForKeyboard(height: CGFloat, duration: TimeInterval, curve: UIView.AnimationCurve) {
-		bottomLayoutConstraint.constant = height
-		view.setNeedsUpdateConstraints()
-		
-		UIView.beginAnimations("keyboard", context: nil)
-		UIView.setAnimationDuration(duration)
-		UIView.setAnimationCurve(curve)
-		view.layoutIfNeeded()
-		UIView.commitAnimations()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {

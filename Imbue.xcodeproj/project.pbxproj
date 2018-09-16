@@ -115,6 +115,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B2B90BF0214E021F0083E5CE /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */,
+				B2C834E61F0E305C002B8931 /* SRGBPickerViewController.swift */,
+				B28A787E20BA82B50070E450 /* AdjustViewController.swift */,
+			);
+			name = Sections;
+			sourceTree = "<group>";
+		};
 		B2C834D61F0E305C002B8931 = {
 			isa = PBXGroup;
 			children = (
@@ -181,9 +191,7 @@
 				B2C481821F127DE100AAF9A1 /* ViewConvenience.swift */,
 				B2C19A431FA98FE8000AB250 /* ColorProvider.swift */,
 				B2C19A451FA9906E000AB250 /* ColorValue+UIKit.swift */,
-				B2C834E41F0E305C002B8931 /* LabPickerViewController.swift */,
-				B2C834E61F0E305C002B8931 /* SRGBPickerViewController.swift */,
-				B28A787E20BA82B50070E450 /* AdjustViewController.swift */,
+				B2B90BF0214E021F0083E5CE /* Sections */,
 			);
 			name = View;
 			sourceTree = "<group>";
