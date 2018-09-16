@@ -109,20 +109,20 @@ enum TextExamplesContext {
 	}
 	
 	class Bud {
-		let program: Program<Model, Msg>
-		let buttonProgram: LayerProgram<Model, Msg, Store<Model, Msg>>
+		let colorPreviewer: Program<Model, Msg>
+		let buttonPreviewer: LayerProgram<Model, Msg, LocalStore<Model, Msg>>
 		
-		fileprivate init(program: Program<Model, Msg>, buttonProgram: LayerProgram<Model, Msg, Store<Model, Msg>>) {
-			self.program = program
-			self.buttonProgram = buttonProgram
+		fileprivate init(colorPreviewer: Program<Model, Msg>, buttonPreviewer: LayerProgram<Model, Msg, LocalStore<Model, Msg>>) {
+			self.colorPreviewer = colorPreviewer
+			self.buttonPreviewer = buttonPreviewer
 		}
 		
 		var backgroundSRGB: ColorValue.RGB {
 			get {
-				return self.program.model.backgroundSRGB
+				return self.colorPreviewer.model.backgroundSRGB
 			}
 			set {
-				self.program.send(.changeBackgroundSRGB(newValue))
+				self.colorPreviewer.send(.changeBackgroundSRGB(newValue))
 			}
 		}
 	}
@@ -133,14 +133,14 @@ enum TextExamplesContext {
 			update: update
 		)
 		
-		let program = Program(view: view, store: store, render: render, layoutGuideForKey: guideForKey, layout: layout)
+		let colorPreviewEnvironment = Program(view: view, store: store, render: render, layoutGuideForKey: guideForKey, layout: layout)
 		
 		let layer = CALayer()
 		view.layer.addSublayer(layer)
 		
-		let buttonLayerEnvironment = LayerProgram(layer: layer, store: store, render: renderButtonLayers)
+		let buttonEnvironment = LayerProgram(layer: layer, store: store, render: renderButtonLayers)
 		
-		return Bud(program: program, buttonProgram: buttonLayerEnvironment)
+		return Bud(program: colorPreviewEnvironment, buttonProgram: buttonEnvironment)
 	}
 	
 	private static func update(message: Msg, model: inout Model) -> Command<Msg> {
