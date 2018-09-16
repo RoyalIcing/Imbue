@@ -130,7 +130,7 @@ extension CellIdentifier {
 						]),
 					button(ElementKey.copyButton, [
 						.title("Copy Hex", for: .normal),
-						//						.set(\.font, to: UIFont.boldSystemFont(ofSize: UIFont.buttonFontSize)),
+						.titleFont(UIFont.boldSystemFont(ofSize: UIFont.buttonFontSize)),
 						.onPress { .copyOutputHexString(hexString) }
 						])
 					])
@@ -258,12 +258,10 @@ extension CellIdentifier {
 			let label = context.view(ElementKey.label)!
 			let copyButton = context.view(ElementKey.copyButton)!
 			return [
-				label.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
-				label.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.5),
-				label.centerYAnchor.constraint(equalTo: copyButton.centerYAnchor),
-				copyButton.leadingAnchor.constraint(greaterThanOrEqualToSystemSpacingAfter: label.trailingAnchor, multiplier: 1.0),
-				copyButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
-				copyButton.topAnchor.constraint(equalTo: margins.topAnchor),
+				label.topAnchor.constraint(equalTo: margins.topAnchor, constant: 8.0),
+				label.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
+				copyButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 12.0),
+				copyButton.centerXAnchor.constraint(equalTo: label.centerXAnchor),
 			]
 		default:
 			return []
