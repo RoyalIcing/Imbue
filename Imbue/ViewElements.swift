@@ -128,19 +128,19 @@ enum TextExamplesContext {
 	}
 	
 	static func make(model: Model, view: UIView, guideForKey: @escaping (String) -> UILayoutGuide? = { _ in nil }) -> Bud {
-		let store = Store(
+		let store = LocalStore(
 			initial: (model, []),
 			update: update
 		)
 		
-		let colorPreviewEnvironment = Program(view: view, store: store, render: render, layoutGuideForKey: guideForKey, layout: layout)
+		let colorPreviewer = Program(view: view, store: store, render: render, layoutGuideForKey: guideForKey, layout: layout)
 		
 		let layer = CALayer()
 		view.layer.addSublayer(layer)
 		
-		let buttonEnvironment = LayerProgram(layer: layer, store: store, render: renderButtonLayers)
+		let buttonPreviewer = LayerProgram(layer: layer, store: store, render: renderButtonLayers)
 		
-		return Bud(program: colorPreviewEnvironment, buttonProgram: buttonEnvironment)
+		return Bud(colorPreviewer: colorPreviewer, buttonPreviewer: buttonPreviewer)
 	}
 	
 	private static func update(message: Msg, model: inout Model) -> Command<Msg> {
@@ -178,7 +178,10 @@ enum TextExamplesContext {
 	
 	private static func renderButtonLayers(model: Model) -> [LayerElement<Msg>] {
 		return [
-			
+			.custom("button", CALayer.self, [
+				.set(\.bounds, to: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)),
+				.set(\.backgroundColor, to: ColorValue.sRGB(model.backgroundSRGB).cgColor)
+				])
 		]
 	}
 	
