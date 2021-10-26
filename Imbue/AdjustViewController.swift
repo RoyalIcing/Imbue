@@ -312,11 +312,12 @@ class AdjustViewController: UITableViewController, ColorProvider {
 		tableView.insetsContentViewsToSafeArea = false
 		tableView.contentInsetAdjustmentBehavior = .never
 		
-		self.tableAssistant = TableAssistant<Model, ItemModel, AdjustMsg>(tableView: tableView, cellForRowAt: self.cellForRowAt, initial: Model(), update: update)
-		
+		var tableCellsDescriptor = TableCellsDescriptor<ItemModel, AdjustMsg>()
 		for cellIdentifier in CellIdentifier.all {
-			tableAssistant.registerCells(reuseIdentifier: cellIdentifier, render: cellIdentifier.render, layout: cellIdentifier.layout)
+			tableCellsDescriptor.registerCells(reuseIdentifier: cellIdentifier, render: cellIdentifier.render, layout: cellIdentifier.layout)
 		}
+		
+		self.tableAssistant = TableAssistant<Model, ItemModel, AdjustMsg>(tableView: tableView, cellsDescriptor: tableCellsDescriptor, cellForRowAt: self.cellForRowAt, initial: Model(), update: update)
 		
 		// Update
 		updateUI()

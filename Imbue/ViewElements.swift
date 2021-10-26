@@ -109,20 +109,18 @@ enum TextExamplesContext {
 	}
 	
 	class Bud {
-		let colorPreviewer: Program<Model, Msg>
-		let buttonPreviewer: LayerProgram<Model, Msg, LocalStore<Model, Msg>>
+		let previewer: Program<Model, Msg>
 		
-		fileprivate init(colorPreviewer: Program<Model, Msg>, buttonPreviewer: LayerProgram<Model, Msg, LocalStore<Model, Msg>>) {
-			self.colorPreviewer = colorPreviewer
-			self.buttonPreviewer = buttonPreviewer
+		fileprivate init(previewer: Program<Model, Msg>) {
+			self.previewer = previewer
 		}
 		
 		var backgroundSRGB: ColorValue.RGB {
 			get {
-				return self.colorPreviewer.model.backgroundSRGB
+				return self.previewer.model.backgroundSRGB
 			}
 			set {
-				self.colorPreviewer.send(.changeBackgroundSRGB(newValue))
+				self.previewer.send(.changeBackgroundSRGB(newValue))
 			}
 		}
 	}
@@ -133,14 +131,9 @@ enum TextExamplesContext {
 			update: update
 		)
 		
-		let colorPreviewer = Program(view: view, store: store, render: render, layoutGuideForKey: guideForKey, layout: layout)
+		let previewer = Program(view: view, store: store, render: render, layoutGuideForKey: guideForKey, layout: layout)
 		
-		let layer = CALayer()
-		view.layer.addSublayer(layer)
-		
-		let buttonPreviewer = LayerProgram(layer: layer, store: store, render: renderButtonLayers)
-		
-		return Bud(colorPreviewer: colorPreviewer, buttonPreviewer: buttonPreviewer)
+		return Bud(previewer: previewer)
 	}
 	
 	private static func update(message: Msg, model: inout Model) -> Command<Msg> {
@@ -151,89 +144,209 @@ enum TextExamplesContext {
 		return []
 	}
 	
-	private static func keyForContrastRatio(textChoice: TextChoice) -> String {
-		return "\(textChoice) contrastRatio"
+	enum PreviewKey : String {
+		case pages = "pages"
+		case buttons = "buttons preview"
+		
+		static func forContrastRatio(textChoice: TextChoice) -> String {
+			return "\(textChoice) contrastRatio"
+		}
 	}
 	
-	static var keyForButtonLayers: String {
-		return "button layers"
+	enum PreviewPage : Int {
+		case empty
+		case accessibleText
+		case buttons
+		
+		func render(model: Model) -> [ViewElement<Msg>] {
+			switch self {
+			case .empty:
+				return []
+			case .accessibleText:
+				return [
+					TextExamplesContext.textExamples,
+					TextExamplesContext.contrastRatios(model: model)
+					].flatMap { $0 }
+			case .buttons:
+				return [
+					.layers(
+						PreviewKey.buttons,
+						TextExamplesContext.renderButtonLayers(model: model)
+//					[
+//						LayerElement.custom("button", CATextLayer.self, [
+//							.set(\.frame, to: CGRect(x: 0.0, y: 0.0, width: 200.0, height: 100.0)),
+//							.set(\.contentsScale, to: 2.0),
+//							.set(\.string, to: "Click me"),
+//							.set(\.alignmentMode, to: .center),
+//							//.set(\.font, to: CTFontCreateWithName(UIFont.systemFont(ofSize: UIFont.buttonFontSize).fontName, 0.0, nil)),
+//							.set(\.backgroundColor, to: ColorValue.sRGB(model.backgroundSRGB).cgColor),
+//							.set(\.borderWidth, to: 4.0),
+//							.set(\.borderColor, to: UIColor.black.cgColor),
+//							.set(\.cornerRadius, to: 6.0)
+//							])
+//					]
+					)
+				]
+			}
+		}
+		
+		func layout(model: Model, context: LayoutContext) -> [NSLayoutConstraint] {
+			let margins = context.marginsGuide
+			let yGuide = context.guide("y")
+			var constraints = [NSLayoutConstraint]()
+			
+			switch self {
+			case .empty:
+				break
+			case .accessibleText:
+				if let firstText = context.view(textChoices[0]) {
+					let midText = context.view(textChoices[(textChoices.count + 1) / 2])!
+					constraints.append(contentsOf: [
+						firstText.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
+						midText.centerYAnchor.constraint(equalTo: yGuide?.centerYAnchor ?? margins.centerYAnchor)
+						])
+					
+					// Stack each label on top of each other
+					for (topChoice, bottomChoice) in zip(textChoices, textChoices[1...]) {
+						let topView = context.view(topChoice)!
+						let bottomView = context.view(bottomChoice)!
+						
+						let stackConstraint = bottomView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 8.0)
+						//stackConstraint.priority = .defaultLow
+						
+						constraints.append(contentsOf: [
+							stackConstraint,
+							bottomView.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
+							//bottomView.bottomAnchor.constraint(lessThanOrEqualTo: margins.bottomAnchor)
+							])
+					}
+					
+					// Add accessibility contrast ratio scores
+					for textChoice in textChoices {
+						let contrastRatioKey = PreviewKey.forContrastRatio(textChoice: textChoice)
+						if let contrastRatioLabel = context.view(contrastRatioKey) {
+							let mainLabel = context.view(textChoice)!
+							constraints.append(contentsOf: [
+								contrastRatioLabel.leadingAnchor.constraint(equalTo: mainLabel.trailingAnchor, constant: 12.0),
+								contrastRatioLabel.firstBaselineAnchor.constraint(equalTo: mainLabel.firstBaselineAnchor)
+								])
+						}
+					}
+				}
+			case .buttons:
+				if let buttonView = context.view(PreviewKey.buttons) {
+					
+					constraints.append(contentsOf: [
+						//			buttonView.topAnchor.constraint(equalTo: lastView.bottomAnchor, constant: 8.0),
+						buttonView.centerYAnchor.constraint(equalTo: margins.centerYAnchor),
+						buttonView.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
+						buttonView.widthAnchor.constraint(equalToConstant: 200.0),
+						buttonView.heightAnchor.constraint(equalToConstant: 100.0)
+						])
+				}
+			}
+			return []
+		}
 	}
 	
 	private static func render(model: Model) -> [ViewElement<Msg>] {
 		return [
-			textExamples,
-			contrastRatios(model: model),
-			[
-				.layers(
-					self.keyForButtonLayers,
-					[
-						.custom("button", CALayer.self, [
-							.set(\.backgroundColor, to: UIColor.red.cgColor)
-							])
-					]
-				)
-			]
-			].flatMap { $0 }
+			ViewElement.Pages(PreviewKey.pages, count: 3, selected: PreviewPage.accessibleText, renderPage: { page in return page.render(model: model) }, layoutPage: { page, context in return page.layout(model: model, context: context) })
+		]
+		
+//		let page = PreviewPage.buttons
+//		return page.render(model: model)
+		
+//		return [
+//			textExamples,
+//			contrastRatios(model: model),
+//			[
+//				.layers(
+//					PreviewKey.buttons,
+//					self.renderButtonLayers(model: model)
+//				)
+//			]
+//			].flatMap { $0 }
 	}
 	
 	private static func renderButtonLayers(model: Model) -> [LayerElement<Msg>] {
 		return [
-			.custom("button", CALayer.self, [
-				.set(\.bounds, to: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)),
-				.set(\.backgroundColor, to: ColorValue.sRGB(model.backgroundSRGB).cgColor)
+			.custom("button", CATextLayer.self, [
+				.set(\.frame, to: CGRect(x: 0.0, y: 0.0, width: 200.0, height: 100.0)),
+				.set(\.contentsScale, to: 2.0),
+				.set(\.string, to: "Click me"),
+				.set(\.alignmentMode, to: .center),
+				//.set(\.font, to: CTFontCreateWithName(UIFont.systemFont(ofSize: UIFont.buttonFontSize).fontName, 0.0, nil)),
+				.set(\.backgroundColor, to: ColorValue.sRGB(model.backgroundSRGB).cgColor),
+				.set(\.borderWidth, to: 4.0),
+				.set(\.borderColor, to: UIColor.black.cgColor),
+				.set(\.cornerRadius, to: 6.0)
 				])
 		]
 	}
 	
 	private static func layout(model: Model, context: LayoutContext) -> [NSLayoutConstraint] {
 		let margins = context.marginsGuide
+		let outerMargins = context.view
 		let yGuide = context.guide("y")
 		var constraints = [NSLayoutConstraint]()
 		
-		// Center first label
-		let first = context.view(textChoices.first!)!
-		let mid = context.view(textChoices[(textChoices.count + 1) / 2])!
-		constraints.append(contentsOf: [
-			first.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
-			mid.centerYAnchor.constraint(equalTo: yGuide?.centerYAnchor ?? margins.centerYAnchor)
-		])
-		
-		// Stack each label on top of each other
-		for (topChoice, bottomChoice) in zip(textChoices, textChoices[1...]) {
-			let topView = context.view(topChoice)!
-			let bottomView = context.view(bottomChoice)!
-			
-			let stackConstraint = bottomView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 8.0)
-			//stackConstraint.priority = .defaultLow
-			
+		if let pages = context.view(PreviewKey.pages) {
 			constraints.append(contentsOf: [
-				stackConstraint,
-				bottomView.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
-				//bottomView.bottomAnchor.constraint(lessThanOrEqualTo: margins.bottomAnchor)
-			])
+				pages.topAnchor.constraint(equalTo: margins.topAnchor),
+				pages.bottomAnchor.constraint(equalTo: yGuide!.bottomAnchor),
+				pages.leadingAnchor.constraint(equalTo: outerMargins.leadingAnchor),
+				pages.trailingAnchor.constraint(equalTo: outerMargins.trailingAnchor)
+				])
 		}
 		
-		// Add accessibility contrast ratio scores
-		for textChoice in textChoices {
-			let contrastRatioKey = keyForContrastRatio(textChoice: textChoice)
-			if let contrastRatioLabel = context.view(contrastRatioKey) {
-				let mainLabel = context.view(textChoice)!
+		// Center first label
+		if let firstText = context.view(textChoices[0]) {
+			let midText = context.view(textChoices[(textChoices.count + 1) / 2])!
+			constraints.append(contentsOf: [
+				firstText.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
+				midText.centerYAnchor.constraint(equalTo: yGuide?.centerYAnchor ?? margins.centerYAnchor)
+			])
+			
+			// Stack each label on top of each other
+			for (topChoice, bottomChoice) in zip(textChoices, textChoices[1...]) {
+				let topView = context.view(topChoice)!
+				let bottomView = context.view(bottomChoice)!
+				
+				let stackConstraint = bottomView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 8.0)
+				//stackConstraint.priority = .defaultLow
+				
 				constraints.append(contentsOf: [
-					contrastRatioLabel.leadingAnchor.constraint(equalTo: mainLabel.trailingAnchor, constant: 12.0),
-					contrastRatioLabel.firstBaselineAnchor.constraint(equalTo: mainLabel.firstBaselineAnchor)
-					])
+					stackConstraint,
+					bottomView.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
+					//bottomView.bottomAnchor.constraint(lessThanOrEqualTo: margins.bottomAnchor)
+				])
+			}
+			
+			// Add accessibility contrast ratio scores
+			for textChoice in textChoices {
+				let contrastRatioKey = PreviewKey.forContrastRatio(textChoice: textChoice)
+				if let contrastRatioLabel = context.view(contrastRatioKey) {
+					let mainLabel = context.view(textChoice)!
+					constraints.append(contentsOf: [
+						contrastRatioLabel.leadingAnchor.constraint(equalTo: mainLabel.trailingAnchor, constant: 12.0),
+						contrastRatioLabel.firstBaselineAnchor.constraint(equalTo: mainLabel.firstBaselineAnchor)
+						])
+				}
 			}
 		}
 		
-		let lastView = context.view(textChoices.last!)!
-		let buttonView = context.view(self.keyForButtonLayers)!
-		constraints.append(contentsOf: [
-//			buttonView.topAnchor.constraint(equalTo: lastView.bottomAnchor, constant: 8.0),
-			buttonView.centerYAnchor.constraint(equalTo: margins.centerYAnchor),
-			buttonView.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
-			buttonView.widthAnchor.constraint(equalToConstant: 200.0),
-			buttonView.heightAnchor.constraint(equalToConstant: 20.0)
-			])
+//		let lastView = context.view(textChoices.last!)!
+		if let buttonView = context.view(PreviewKey.buttons) {
+		
+			constraints.append(contentsOf: [
+				//			buttonView.topAnchor.constraint(equalTo: lastView.bottomAnchor, constant: 8.0),
+				buttonView.centerYAnchor.constraint(equalTo: margins.centerYAnchor),
+				buttonView.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
+				buttonView.widthAnchor.constraint(equalToConstant: 200.0),
+				buttonView.heightAnchor.constraint(equalToConstant: 100.0)
+				])
+		}
 		
 		return constraints
 	}
@@ -275,7 +388,7 @@ enum TextExamplesContext {
 				text = " "
 			}
 			
-			return label(keyForContrastRatio(textChoice: textChoice), [
+			return label(PreviewKey.forContrastRatio(textChoice: textChoice), [
 				.text(text),
 				.set(\.font, to: smallCapsFont),
 				.set(\.textColor, to: textChoice.textColor),
