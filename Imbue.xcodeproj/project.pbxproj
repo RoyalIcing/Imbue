@@ -52,6 +52,7 @@
 /* Begin PBXFileReference section */
 		B22075661FA9DA2000EFC187 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		B22075681FA9DA6000EFC187 /* UserInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterface.swift; sourceTree = "<group>"; };
+		B23E9D6D2727B69200F43C27 /* Imbue.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Imbue.entitlements; sourceTree = "<group>"; };
 		B2557E0B20B1A610005DFAE8 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		B2557E1820B1ACAC005DFAE8 /* ViewElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewElements.swift; sourceTree = "<group>"; };
 		B2557E1A20B1B0B0005DFAE8 /* Changes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Changes.swift; sourceTree = "<group>"; };
@@ -152,6 +153,7 @@
 		B2C834E11F0E305C002B8931 /* Imbue */ = {
 			isa = PBXGroup;
 			children = (
+				B23E9D6D2727B69200F43C27 /* Imbue.entitlements */,
 				B2C834E21F0E305C002B8931 /* AppDelegate.swift */,
 				B2C835151F0E603D002B8931 /* Model */,
 				B2C835141F0E6034002B8931 /* View */,
@@ -303,6 +305,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -557,6 +560,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Imbue/Imbue.entitlements;
 				DEVELOPMENT_TEAM = 5278SPSAPR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -564,15 +568,18 @@
 					"$(PROJECT_DIR)/Imbue",
 				);
 				INFOPLIST_FILE = Imbue/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.royalicing.Imbue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -580,6 +587,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Imbue/Imbue.entitlements;
 				DEVELOPMENT_TEAM = 5278SPSAPR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -587,15 +595,18 @@
 					"$(PROJECT_DIR)/Imbue",
 				);
 				INFOPLIST_FILE = Imbue/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.royalicing.Imbue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};
